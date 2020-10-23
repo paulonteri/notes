@@ -1,0 +1,65 @@
+name: Test
+on: [push, pull_request]
+
+env:
+    SECRET_KEY : www.paulonteri.com
+    DJANGO_SETTINGS_MODULE: backend.settings.production
+    DEBUG : False
+    TESTING: False
+
+jobs:
+  build:
+    name: Test Job
+    runs-on: ubuntu-latest
+    strategy:
+      max-parallel: 2
+      matrix:
+        python-version: [3.6, 3.7, 3.8]
+    env:
+      DB_HOST: localhost
+      DB_NAME: test
+      DB_USER: test
+      DB_PASSWORD: VeryHard
+      APP_PATH: .
+      FAIL_LEVEL: ERROR
+      ENV_TYPE: venv
+      DEP_PATH: requirements.txt
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v2
+        
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v2
+        with:
+            python-version: ${{ matrix.python-version }}
+
+      - name: Install Requirements
+        run: pip install -r requirements.txt
+        
+      - name: Lint with flake8
+        run: |
+          pip install flake8
+          flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
+          
+      - name: Setup PostgreSQL
+        uses: Harmon758/postgresql-action@v1.0.0
+        with:
+          postgresql db: test
+          postgresql user: test
+          postgresql password: VeryHard
+        
+      - name: Migrate
+        run: python manage.py migrate --noinput
+        
+      - name: Django Security Check
+        uses: victoriadrake/django-security-check@v1.1.0    
+        
+      - name: Django Test
+        run: python manage.py test --noinput
+        
+      - name: Docker Build
+        run: docker build --tag bulletinboard:1.0 .
+      
+      - name: Docker Run
+        run: docker run  --detach bulletinboard:1.0
+        timeout-minutes: 0.5
