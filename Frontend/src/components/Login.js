@@ -18,10 +18,6 @@ class Login extends React.Component {
     this.setState({ [event.target.name]: event.target.checked }); // handle checkboxes
   };
 
-  handleDate = (dateString, id) => {
-    this.setState({ [id]: dateString }); // handle date-picker
-  };
-
   formRef = React.createRef();
 
   handleSubmit = (e) => {

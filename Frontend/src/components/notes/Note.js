@@ -10,6 +10,7 @@ import {
 
 class Login extends React.Component {
   state = { title: "", noteText: "" };
+  formRef = React.createRef();
 
   myChangeHandler = (e) => this.setState({ [e.target.id]: e.target.value }); // grab the name and set thet to the value
 
@@ -22,8 +23,6 @@ class Login extends React.Component {
   handleDate = (dateString, id) => {
     this.setState({ [id]: dateString }); // handle date-picker
   };
-
-  formRef = React.createRef();
 
   handleSubmit = (e) => {
     const { title, noteText } = this.state; // get them from the state
