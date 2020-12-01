@@ -21,6 +21,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/ping/', pong),
     path('api/v1/auth/', include('accounts.urls')),
+    path('notes/', include('notes.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 # Django Debug Toolbar
