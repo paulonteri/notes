@@ -11,6 +11,7 @@ class Note(models.Model):
 
     class Meta:
         ordering = ['-title']
+        db_table = "note"
 
     def __str__(self):
         return self.title
@@ -22,6 +23,7 @@ class NoteUser(models.Model):
 
     class Meta:
         unique_together = ['note', 'user']
+        db_table = "note_user"
 
     def __str__(self):
         return str(self.note.title) + " " + str(self.user.username)
