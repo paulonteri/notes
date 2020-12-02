@@ -87,3 +87,17 @@ class ShareNoteAPI(APIView):
                     'Something went wrong. Please try again. ' + str(e))
             else:
                 return Response(status=HTTP_200_OK)
+
+
+class NotesSharedWithUserAPI(APIView):
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get(self, request, *args, **kwargs):
+        request_user = request.user
+
+        notes_shared_with_user = [
+            note_user.note for note_user in NoteUser.objects.filter(user=request_user)]
+
+        serializer = NoteSerializer(notes_shared_with_user, many=True)
+
+        return Response(serializer.data)
