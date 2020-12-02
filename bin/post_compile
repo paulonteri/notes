@@ -4,12 +4,15 @@
 # https://discussion.heroku.com/t/django-automaticlly-run-syncdb-and-migrations-after-heroku-deploy-with-a-buildpack-or-otherwise/466/7
 
 echo "=> Run commands after deploy to Heroku..."
+cd Backend
 
 echo "=> Performing database migrations..."
 python manage.py migrate
 
 echo "=> Adding Admin User..."
 python manage.py add_admin_user
+
+cd ..
 
 # This can also be achieved by the release command in your Procfile
 # for exemple to migrate :
