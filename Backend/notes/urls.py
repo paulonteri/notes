@@ -1,9 +1,12 @@
+from django.urls import path, include
 from rest_framework import routers
-from .api import NoteAPI, NoteUserAPI
+from .api import NoteAPI, ShareNoteAPI, AllNoteUserAPI
 
 router = routers.DefaultRouter()
+router.register('note-users', AllNoteUserAPI, 'Notes')
+router.register('notes', NoteAPI, 'Notes')
 
-router.register('shared', NoteUserAPI, 'Notes')
-router.register('', NoteAPI, 'Notes')
-
-urlpatterns = router.urls
+urlpatterns = [
+    path('share/<int:id>/', ShareNoteAPI.as_view()),
+    path('', include(router.urls)),
+]
