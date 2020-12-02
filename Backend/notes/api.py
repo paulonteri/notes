@@ -8,16 +8,27 @@ from .serializers import NoteSerializer, NoteUserSerializer
 
 
 class NoteAPI(viewsets.ModelViewSet):
-    permission_classes = [permissions.AllowAny]
+    permission_classes = [permissions.IsAuthenticated]
     serializer_class = NoteSerializer
     queryset = Note.objects.all()
 
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
 
+    def get_queryset(self):
+        queryset = self.queryset
+        request_user = self.request.user
+
+        # non-admins can only CRUD their notes
+        if not (request_user.is_staff or request_user.is_admin):
+            query_set = queryset.filter(owner=self.request.user)
+            return query_set
+        else:
+            return queryset
+
 
 class AllNoteUserAPI(viewsets.ModelViewSet):
-    permission_classes = [permissions.AllowAny]
+    permission_classes = [permissions.IsAuthenticated]
     serializer_class = NoteUserSerializer
     queryset = NoteUser.objects.all()
 
