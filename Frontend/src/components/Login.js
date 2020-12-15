@@ -1,4 +1,6 @@
-import React from "react";
+import React, { Component } from "react";
+import { connect } from "react-redux";
+import { login } from "../state/actions/auth/auth";
 import {
   FormControl,
   Input,
@@ -7,7 +9,7 @@ import {
   Button,
 } from "@material-ui/core";
 
-class Login extends React.Component {
+class Login extends Component {
   state = { email: "", password: "" };
 
   myChangeHandler = (e) => this.setState({ [e.target.id]: e.target.value }); // grab the name and set thet to the value
@@ -21,22 +23,14 @@ class Login extends React.Component {
   formRef = React.createRef();
 
   handleSubmit = (e) => {
+    e.preventDefault();
+
     const { email, password } = this.state; // get them from the state
 
-    // formData from above to the formData const
-    const formData = {
-      email,
-      password,
-    };
-
-    // pass the formData const to the action
-    // this.props.addformData(formData);
-    console.log(formData);
-
     // clear fields
-    this.formRef.current.resetFields();
+    // this.formRef.current.resetFields();
 
-    e.preventDefault();
+    this.props.login(email, password);
   };
 
   render() {
@@ -85,4 +79,9 @@ class Login extends React.Component {
   }
 }
 
-export default Login;
+const mapStateToProps = (state) => ({
+  isAuthenticated: state.authReducer.isAuthenticated,
+  isLoading: state.authReducer.isLoading,
+});
+
+export default connect(mapStateToProps, { login })(Login);
