@@ -7,6 +7,7 @@ import { Route, HashRouter, Switch } from "react-router-dom";
 //
 import Note from "./components/notes/Note";
 import Login from "./components/Login";
+import NotesList from "./components/notes/NotesList";
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
       <HashRouter>
         <Switch>
           <Route exact path="/note" component={Note} />
+          <Route exact path="/notes" component={NotesList} />
           <Route exact path="/home" component={HomePage} />
           <Route exact path="/login" component={Login} />
           {/* <PrivateRoute path="/" component={Dashboard} /> */}

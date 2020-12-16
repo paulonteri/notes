@@ -8,7 +8,7 @@ import {
   TextField,
 } from "@material-ui/core";
 
-class Login extends React.Component {
+class Note extends React.Component {
   state = { title: "", noteText: "" };
   formRef = React.createRef();
 
@@ -98,4 +98,4 @@ class Login extends React.Component {
   }
 }
 
-export default Login;
+export default Note;
