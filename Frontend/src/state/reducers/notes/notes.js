@@ -13,7 +13,7 @@ import {
   GET_NOTE_DETAIL_FAILED,
 } from "../../actions/notes/types";
 
-import { findAndReplace } from "../algorithms";
+import { findAndReplace } from "../../algorithms";
 
 const initialState = {
   notes: [],

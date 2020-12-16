@@ -21,7 +21,7 @@ import { returnErrors } from "../alerts/messages";
 export const addNote = (noteData) => (dispatch, getState) => {
   dispatch({ type: ADD_NOTE_LOADING });
   axios
-    .post(`${SERVER_URL}/api/v1/notes/`, noteData, tokenConfig(getState))
+    .post(`${SERVER_URL}/notes/notes/`, noteData, tokenConfig(getState))
     .then((res) => {
       dispatch({
         type: ADD_NOTE_DONE,
@@ -52,7 +52,7 @@ export const getNotes = () => (dispatch, getState) => {
   // GET ALL NOTES
   dispatch({ type: GET_NOTES_LOADING });
   axios
-    .get(`${SERVER_URL}/api/v1/notes/`, tokenConfig(getState))
+    .get(`${SERVER_URL}/notes/notes/`, tokenConfig(getState))
     .then((res) => {
       dispatch({
         type: GET_NOTES_DONE,
@@ -82,7 +82,7 @@ export const getNotes = () => (dispatch, getState) => {
 export const getNoteDetail = (noteId) => (dispatch, getState) => {
   dispatch({ type: GET_NOTE_DETAIL_LOADING });
   axios
-    .get(`${SERVER_URL}/api/v1/notes/${noteId}/`, tokenConfig(getState))
+    .get(`${SERVER_URL}/notes/notes/${noteId}/`, tokenConfig(getState))
     .then((res) => {
       dispatch({
         type: GET_NOTE_DETAIL_DONE,
@@ -114,7 +114,7 @@ export const patchNote = (noteId, noteData) => (dispatch, getState) => {
   dispatch({ type: PATCH_NOTE_LOADING });
   axios
     .patch(
-      `${SERVER_URL}/api/v1/notes/${noteId}/`,
+      `${SERVER_URL}/notes/notes/${noteId}/`,
       noteData,
       tokenConfig(getState)
     )
