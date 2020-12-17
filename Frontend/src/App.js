@@ -15,6 +15,7 @@ function App() {
       <HashRouter>
         <Switch>
           <Route exact path="/note" component={Note} />
+          <Route exact path="/note/:noteId" component={Note} />
           <Route exact path="/notes" component={NotesList} />
           <Route exact path="/home" component={HomePage} />
           <Route exact path="/login" component={Login} />
