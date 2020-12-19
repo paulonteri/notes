@@ -1,4 +1,4 @@
-var SERVER_URL = "https://notes-cuea.web.app";
+var SERVER_URL = "https://notes-cuea.herokuapp.com";
 
 if (!process.env.NODE_ENV || process.env.NODE_ENV === "development") {
   SERVER_URL = "http://localhost:8000";
