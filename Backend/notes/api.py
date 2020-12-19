@@ -26,6 +26,11 @@ class NoteAPI(viewsets.ModelViewSet):
         else:
             return queryset
 
+    def list(self, request):
+        queryset = Note.objects.all().filter(owner=request.user)
+        serializer = NoteSerializer(queryset, many=True)
+        return Response(serializer.data)
+
 
 class AllNoteUserAPI(viewsets.ModelViewSet):
     permission_classes = [permissions.IsAuthenticated]
