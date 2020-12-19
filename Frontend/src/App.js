@@ -6,6 +6,7 @@ import store from "./state/store";
 import { Route, HashRouter, Switch } from "react-router-dom";
 //
 import Note from "./components/notes/Note";
+import EditNote from "./components/notes/EditNote";
 import Login from "./components/Login";
 import NotesList from "./components/notes/NotesList";
 
@@ -15,6 +16,7 @@ function App() {
       <HashRouter>
         <Switch>
           <Route exact path="/note" component={Note} />
+          <Route exact path="/note/:noteId/edit" component={EditNote} />
           <Route exact path="/note/:noteId" component={Note} />
           <Route exact path="/notes" component={NotesList} />
           <Route exact path="/home" component={HomePage} />

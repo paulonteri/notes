@@ -63,7 +63,7 @@ export const NotesList = (props) => {
                 </Typography>
               </div>
               <div>
-                <Link to={`/note/${note.id}/`}>
+                <Link to={`/note/${note.id}/edit`}>
                   <Button variant="contained" color="primary">
                     View Note
                   </Button>
@@ -80,14 +80,14 @@ export const NotesList = (props) => {
 NotesList.propTypes = {
   getNotesLoading: PropTypes.bool.isRequired,
   getNotesFailed: PropTypes.bool.isRequired,
-  getNotesSucces: PropTypes.bool.isRequired,
+  getNotesSuccess: PropTypes.bool.isRequired,
   notes: PropTypes.array.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   getNotesLoading: state.notesReducer.getNotesLoading,
   getNotesFailed: state.notesReducer.getNotesFailed,
-  getNotesSucces: state.notesReducer.getNotesSucces,
+  getNotesSuccess: state.notesReducer.getNotesSuccess,
   notes: state.notesReducer.notes,
 });
 
