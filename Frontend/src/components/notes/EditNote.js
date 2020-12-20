@@ -85,7 +85,7 @@ class EditNoteForm extends Component {
               <TextField
                 label="Note"
                 multiline
-                rows={4}
+                rows={6}
                 variant="outlined"
                 id="noteText"
                 onChange={this.myChangeHandler}
@@ -111,12 +111,14 @@ const EditNote = (props) => {
   //
   useEffect(() => {
     props.getNoteDetail(props.noteId);
+    // eslint-disable-next-line
   }, [props.noteId]);
 
   useEffect(() => {
     if (isSubmited && !props.patchNoteFailed) {
       setredirect(true);
     }
+    // eslint-disable-next-line
   }, [props.patchNoteLoading]);
 
   if (props.getNoteDetailLoading || props.patchNoteLoading) {

@@ -64,7 +64,7 @@ class ViewNoteForm extends Component {
               <TextField
                 label="Note"
                 multiline
-                rows={4}
+                rows={6}
                 variant="filled"
                 id="noteText"
                 value={this.state.noteText}
@@ -83,6 +83,7 @@ class ViewNoteForm extends Component {
 const ViewNote = (props) => {
   useEffect(() => {
     props.getNoteDetail(props.noteId);
+    // eslint-disable-next-line
   }, [props.noteId]);
 
   if (props.getNoteDetailLoading) {
