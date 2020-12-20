@@ -5,15 +5,14 @@ from rest_framework.exceptions import APIException, PermissionDenied
 from rest_framework.status import HTTP_200_OK
 from .models import Note, NoteUser
 from .serializers import NoteSerializer, NoteUserSerializer
+from django.contrib.auth import get_user_model
+User = get_user_model()
 
 
 class NoteAPI(viewsets.ModelViewSet):
     permission_classes = [permissions.IsAuthenticated]
     serializer_class = NoteSerializer
     queryset = Note.objects.all()
-
-    def perform_create(self, serializer):
-        serializer.save(owner=self.request.user)
 
     def get_queryset(self):
         queryset = self.queryset
@@ -30,6 +29,56 @@ class NoteAPI(viewsets.ModelViewSet):
         queryset = Note.objects.all().filter(owner=request.user)
         serializer = NoteSerializer(queryset, many=True)
         return Response(serializer.data)
+
+    def create(self, request, *args, **kwargs):
+        # get shared_to
+        try:
+            self.shared_to = request.data["shared_to"]
+        except Exception:
+            pass
+        return super().create(request, *args, **kwargs)
+
+    def perform_create(self, serializer):
+        instance = serializer.save(owner=self.request.user)
+
+        # save NoteUser instances (share the note)
+        if self.shared_to and len(self.shared_to) > 0:
+
+            shared_to_users = User.objects.filter(pk__in=self.shared_to)
+
+            note_user_objects = []
+            for usr in shared_to_users:
+                if usr != instance.owner:
+                    note_user_objects.append(
+                        NoteUser(note=instance, user=usr))
+
+            NoteUser.objects.bulk_create(note_user_objects)
+
+        super().perform_create(serializer)
+
+    def update(self, request, *args, **kwargs):
+        if request.data["shared_to"]:
+            self.shared_to = (request.data["shared_to"])
+
+        return super().update(request, *args, **kwargs)
+
+    def perform_update(self, serializer):
+        instance = serializer.save()
+
+        # save new NoteUser instances (share the note)
+        if instance and self.shared_to and len(self.shared_to) > 0:
+            shared_to_users = User.objects.filter(pk__in=self.shared_to)
+            NoteUser.objects.filter(note=instance).delete()
+
+            note_user_objects = []
+            for usr in shared_to_users:
+                if usr != instance.owner:
+                    note_user_objects.append(
+                        NoteUser(note=instance, user=usr))
+
+            NoteUser.objects.bulk_create(note_user_objects)
+        #
+        super().perform_update(serializer)
 
 
 class AllNoteUserAPI(viewsets.ModelViewSet):
