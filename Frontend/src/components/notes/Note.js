@@ -65,6 +65,7 @@ class Note extends React.Component {
               id="title"
               aria-describedby="my-helper-text"
               onChange={this.myChangeHandler}
+              required
             />
             <FormHelperText id="my-helper-text">
               Give your notes a title
@@ -83,6 +84,7 @@ class Note extends React.Component {
               rows={4}
               variant="outlined"
               id="noteText"
+              required
               onChange={this.myChangeHandler}
             />
             <FormHelperText id="my-helper-text">

@@ -31,7 +31,9 @@ const Header = () => {
   return (
     <Container className={classes.root}>
       <Container style={{ flex: 0.2 }}>
-        <p>Notes App</p>
+        <Link to={`/notes`}>
+          <p>Notes App</p>
+        </Link>
       </Container>
       <Container className={classes.buttons}>
         <Link to={`/note`}>

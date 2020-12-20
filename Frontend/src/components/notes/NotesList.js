@@ -49,7 +49,7 @@ export const NotesList = (props) => {
   }
   return (
     <div>
-      <div>sis</div>
+      <div>Notes</div>
       {props.notes.map((note) => {
         return (
           <Card className={classes.root} key={note.id} variant="outlined">
@@ -63,7 +63,7 @@ export const NotesList = (props) => {
                 </Typography>
               </div>
               <div>
-                <Link to={`/note/${note.id}/edit`}>
+                <Link to={`/note/${note.id}`}>
                   <Button variant="contained" color="primary">
                     View Note
                   </Button>

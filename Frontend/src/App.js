@@ -8,6 +8,7 @@ import { Route, HashRouter, Switch } from "react-router-dom";
 import Header from "./components/Header";
 import Note from "./components/notes/Note";
 import EditNote from "./components/notes/EditNote";
+import ViewNote from "./components/notes/ViewNote";
 import Login from "./components/Login";
 import NotesList from "./components/notes/NotesList";
 
@@ -20,7 +21,7 @@ function App() {
           <Switch>
             <Route exact path="/note" component={Note} />
             <Route exact path="/note/:noteId/edit" component={EditNote} />
-            <Route exact path="/note/:noteId" component={Note} />
+            <Route exact path="/note/:noteId" component={ViewNote} />
             <Route exact path="/notes" component={NotesList} />
             <Route exact path="/home" component={HomePage} />
             <Route exact path="/login" component={Login} />
