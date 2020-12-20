@@ -77,7 +77,8 @@ class UpdateUserAPI(viewsets.ModelViewSet):
     Update API
     """
 
-    permission_classes = [permissions.DjangoModelPermissions, permissions.IsAdminUser]
+    permission_classes = [
+        permissions.DjangoModelPermissions, permissions.IsAdminUser]
     serializer_class = UserSerializer
     queryset = User.objects.all()
 
@@ -132,3 +133,9 @@ class PermissionAPI(generics.ListAPIView):
     permission_classes = [
         permissions.DjangoModelPermissions
     ]
+
+
+class UsersAPI(viewsets.ModelViewSet):
+    permission_classes = [permissions.IsAuthenticated]
+    serializer_class = UserSerializer
+    queryset = User.objects.all()

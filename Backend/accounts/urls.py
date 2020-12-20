@@ -2,12 +2,13 @@ from django.urls import path, include
 from knox import views as knox_views
 from rest_framework import routers
 
-from .api import RegisterAPI, LoginAPI, UserAPI, GroupAPI, PermissionAPI, \
+from .api import RegisterAPI, LoginAPI, UserAPI, UsersAPI, GroupAPI, PermissionAPI, \
     UpdateUserAPI
 
 router = routers.DefaultRouter()
 
 router.register("update", UpdateUserAPI, "UpdateUserAPI")
+router.register("users", UsersAPI, "UsersAPI")
 
 urlpatterns = [
     path('user', UserAPI.as_view()),
