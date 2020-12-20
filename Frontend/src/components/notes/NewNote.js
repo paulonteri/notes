@@ -25,7 +25,7 @@ const MenuProps = {
   },
 };
 
-class Note extends Component {
+class NewNote extends Component {
   state = {
     title: "",
     noteText: "",
@@ -204,7 +204,7 @@ const styles = {
   },
 };
 
-Note.propTypes = {
+NewNote.propTypes = {
   getUsersLoading: PropTypes.bool.isRequired,
   getUsersFailed: PropTypes.bool.isRequired,
   users: PropTypes.array.isRequired,
@@ -223,5 +223,5 @@ const mapStateToProps = (state) => ({
 });
 
 export default connect(mapStateToProps, { getUsers, addNote })(
-  withStyles(styles)(Note)
+  withStyles(styles)(NewNote)
 );
