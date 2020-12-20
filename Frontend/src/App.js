@@ -11,6 +11,8 @@ import EditNote from "./components/notes/EditNote";
 import ViewNote from "./components/notes/ViewNote";
 import Login from "./components/Login";
 import NotesList from "./components/notes/NotesList";
+//
+import PrivateRoute from "./components/PrivateRoute";
 
 function App() {
   return (
@@ -19,14 +21,18 @@ function App() {
         <HashRouter>
           <Header />
           <Switch>
-            <Route exact path="/note" component={NewNote} />
-            <Route exact path="/note/:noteId/edit" component={EditNote} />
-            <Route exact path="/note/:noteId" component={ViewNote} />
-            <Route exact path="/notes" component={NotesList} />
-            <Route exact path="/home" component={HomePage} />
+            <PrivateRoute exact path="/note" component={NewNote} />
+            <PrivateRoute
+              exact
+              path="/note/:noteId/edit"
+              component={EditNote}
+            />
+            <PrivateRoute exact path="/note/:noteId" component={ViewNote} />
+            <PrivateRoute exact path="/notes" component={NotesList} />
+            <PrivateRoute exact path="/home" component={HomePage} />
             <Route exact path="/login" component={Login} />
             {/* <PrivateRoute path="/" component={Dashboard} /> */}
-            <Route exact path="/" component={Login} />
+            <PrivateRoute exact path="/" component={NotesList} />
           </Switch>
         </HashRouter>
       </Provider>

@@ -8,6 +8,7 @@ import {
   FormHelperText,
   Button,
 } from "@material-ui/core";
+import { Redirect } from "react-router-dom";
 
 class Login extends Component {
   state = { email: "", password: "" };
@@ -34,6 +35,9 @@ class Login extends Component {
   };
 
   render() {
+    if (this.props.isAuthenticated) {
+      return <Redirect to="/" />;
+    }
     return (
       <div>
         <form
