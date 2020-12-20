@@ -78,11 +78,14 @@ export default function (state = initialState, action) {
         registerUserFailed: false,
       };
     case REGISTER_SUCCESS:
+      setToken(action.payload.token);
       return {
         ...state,
         registerUserLoading: false,
         registerUserFailed: false,
         registerUserSuccess: true,
+        isAuthenticated: true,
+        isLoading: false,
       };
     case REGISTER_FAIL:
       return {

@@ -11,7 +11,7 @@ import {
 import { Redirect } from "react-router-dom";
 
 class Login extends Component {
-  state = { email: "", password: "" };
+  state = { username: "", password: "" };
 
   myChangeHandler = (e) => this.setState({ [e.target.id]: e.target.value }); // grab the name and set thet to the value
 
@@ -26,12 +26,12 @@ class Login extends Component {
   handleSubmit = (e) => {
     e.preventDefault();
 
-    const { email, password } = this.state; // get them from the state
+    const { username, password } = this.state; // get them from the state
 
     // clear fields
     // this.formRef.current.resetFields();
 
-    this.props.login(email, password);
+    this.props.login(username, password);
   };
 
   render() {
@@ -54,14 +54,15 @@ class Login extends Component {
           }}
         >
           <FormControl size="medium" style={{ width: "270px" }}>
-            <InputLabel htmlFor="email">Email address</InputLabel>
+            <InputLabel htmlFor="username">Username</InputLabel>
             <Input
-              id="email"
+              id="username"
               aria-describedby="my-helper-text"
               onChange={this.myChangeHandler}
+              required
             />
             <FormHelperText id="my-helper-text">
-              We'll never share your email.
+              You're unique username
             </FormHelperText>
           </FormControl>
           <FormControl size="medium" style={{ width: "270px" }}>
@@ -71,11 +72,12 @@ class Login extends Component {
               type="password"
               aria-describedby="my-helper-text"
               onChange={this.myChangeHandler}
+              required
             />
             <FormHelperText id="my-helper-text"></FormHelperText>
           </FormControl>
           <Button type="submit" color="primary" variant="contained">
-            Submit
+            Login
           </Button>
         </form>
       </div>

@@ -54,14 +54,10 @@ export const login = (username, password) => (dispatch) => {
 //
 //
 ///// REGISTER USER /////
-export const register = ({ username, email, password, groups }) => (
-  dispatch,
-  getState
-) => {
-  const body = JSON.stringify({ username, email, password, groups });
+export const register = (userData) => (dispatch, getState) => {
   dispatch({ type: REGISTER_LOADING });
   axios
-    .post(`${URL}/api/v1/auth/register`, body, tokenConfig(getState))
+    .post(`${URL}/api/v1/auth/register`, userData, tokenConfig(getState))
     .then((res) => {
       dispatch(createMessage({ success: "User Regisered" }));
       dispatch({

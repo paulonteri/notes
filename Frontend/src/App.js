@@ -10,6 +10,7 @@ import NewNote from "./components/notes/NewNote";
 import EditNote from "./components/notes/EditNote";
 import ViewNote from "./components/notes/ViewNote";
 import Login from "./components/Login";
+import Register from "./components/Register";
 import NotesList from "./components/notes/NotesList";
 //
 import PrivateRoute from "./components/PrivateRoute";
@@ -31,6 +32,7 @@ function App() {
             <PrivateRoute exact path="/notes" component={NotesList} />
             <PrivateRoute exact path="/home" component={HomePage} />
             <Route exact path="/login" component={Login} />
+            <Route exact path="/register" component={Register} />
             {/* <PrivateRoute path="/" component={Dashboard} /> */}
             <PrivateRoute exact path="/" component={NotesList} />
           </Switch>
