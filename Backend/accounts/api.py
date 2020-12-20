@@ -13,22 +13,16 @@ class RegisterAPI(generics.GenericAPIView):
     """
     Register API
     """
-    permission_classes = [permissions.DjangoModelPermissions]
+    permission_classes = [permissions.AllowAny]
     serializer_class = RegisterSerializer
     queryset = User.objects.all()
 
     def post(self, request, *args, **kwargs):
-        if not "groups" in request.data or len(request.data["groups"]) < 1:
-            # raise APIException("User must be in at least one group!")
-            pass
-        else:
-            serializer = self.get_serializer(data=request.data)
+        serializer = self.get_serializer(data=request.data)
         # send back any errors
         serializer.is_valid(raise_exception=True)
         # save user
         user = serializer.save()
-        # save groups
-        user.groups.set(request.data["groups"])
 
         # send response
         return Response({

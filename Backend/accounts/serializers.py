@@ -19,7 +19,8 @@ class UserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ('id', 'username', 'email', 'groups', "date_joined", "last_login")
+        fields = ('id', 'username', 'email', 'groups', "date_joined",
+                  "last_login", "role", "first_name", "last_name", "is_admin")
         depth = 1
 
 
@@ -30,12 +31,15 @@ class RegisterSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ('id', 'username', 'email', 'password')
+        fields = ('id', 'username', 'email', 'password',
+                  "role", "first_name", "last_name")
         extra_kwargs = {'password': {'write_only': True}}
 
     def create(self, validated_data):
         user = User.objects.create_user(
-            validated_data['username'], validated_data['email'], validated_data['password'])
+            validated_data['username'], validated_data['email'], validated_data['password'],
+            validated_data['first_name'], validated_data['last_name'], validated_data['role']
+        )
 
         return user
 
