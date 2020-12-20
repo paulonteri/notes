@@ -7,70 +7,12 @@ import MenuItem from "@material-ui/core/MenuItem";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
 import Chip from "@material-ui/core/Chip";
-
-const styles = {
-  formControl: {
-    margin: 5,
-    minWidth: 200,
-    maxWidth: 450,
-    padding: 5,
-  },
-  chips: {
-    display: "flex",
-    flexWrap: "wrap",
-  },
-  chip: {
-    margin: 2,
-  },
-  noLabel: {
-    marginTop: 5,
-  },
-};
-
-const names = [
-  {
-    id: 6,
-    title: "owner title 2 5",
-    text: "owner owner owner bro",
-    owner: 1,
-  },
-  {
-    id: 10,
-    title: "One sdsds",
-    text: "1",
-    owner: 1,
-  },
-  {
-    id: 1,
-    title: "Note Title",
-    text: "Note Text",
-    owner: 1,
-  },
-  {
-    id: 2,
-    title: "Note 2",
-    text: "Note 2",
-    owner: 1,
-  },
-  {
-    id: 9,
-    title: "Math",
-    text: "Math",
-    owner: 1,
-  },
-  {
-    id: 4,
-    title: "Four",
-    text: "4",
-    owner: 1,
-  },
-  {
-    id: 3,
-    title: "30",
-    text: "dfdsfsdf",
-    owner: 1,
-  },
-];
+import { getUsers } from "../../state/actions/users/users";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import SpinnerLarge from "../../layout/SpinnerLarge";
+import { addNote } from "../../state/actions/notes/notes";
+import { Redirect } from "react-router-dom";
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -87,10 +29,14 @@ class Note extends Component {
   state = {
     title: "",
     noteText: "",
-    personName: [],
+    sharedTo: [],
+    formSubmitted: false,
   };
-  classes = this.props.classes;
   formRef = React.createRef();
+
+  componentDidMount() {
+    this.props.getUsers();
+  }
 
   myChangeHandler = (e) => this.setState({ [e.target.id]: e.target.value }); // grab the name and set thet to the value
 
@@ -105,25 +51,39 @@ class Note extends Component {
   };
 
   handleSubmit = (e) => {
-    const { title, noteText } = this.state; // get them from the state
+    e.preventDefault();
+
+    const { title, noteText, sharedTo } = this.state; // get them from the state
 
     // formData from above to the formData const
     const formData = {
       title,
-      noteText,
+      text: noteText,
+      shared_to: sharedTo,
     };
 
     // pass the formData const to the action
     // this.props.addformData(formData);
     console.log(formData);
 
-    // clear fields
-    this.formRef.current.resetFields();
+    this.props.addNote(formData);
 
-    e.preventDefault();
+    this.setState({ formSubmitted: true });
+
+    // clear fields
+    // this.formRef.current.resetFields();
   };
 
   render() {
+    if (this.props.getUsersLoading) {
+      return <SpinnerLarge />;
+    } else if (
+      this.state.formSubmitted &&
+      !this.props.addNoteLoading &&
+      !this.props.addNoteFailed
+    ) {
+      return <Redirect to="/notes" />;
+    }
     return (
       <div>
         <form
@@ -140,7 +100,7 @@ class Note extends Component {
           }}
         >
           <FormControl size="medium" style={{ width: "270px" }}>
-            <InputLabel htmlFor="title">Title</InputLabel>
+            <InputLabel htmlFor="title">Title*</InputLabel>
             <Input
               id="title"
               aria-describedby="my-helper-text"
@@ -171,7 +131,7 @@ class Note extends Component {
               Write down your notes
             </FormHelperText>
           </FormControl>
-          <FormControl className={this.classes.formControl}>
+          <FormControl className={this.props.classes.formControl}>
             <InputLabel id="demo-mutiple-chip-label">
               Share note with
             </InputLabel>
@@ -179,23 +139,25 @@ class Note extends Component {
               labelId="demo-mutiple-chip-label"
               id="demo-mutiple-chip"
               multiple
-              value={this.state.personName}
+              value={this.state.sharedTo}
               onChange={(e) => {
-                this.setState({ personName: e.target.value });
+                // console.log(e.target.value);
+                this.setState({ sharedTo: e.target.value });
               }}
               input={<Input id="select-multiple-chip" />}
               renderValue={(selectedIds) => {
-                var selectedItems = names.filter((item) =>
+                var selectedItems = this.props.users.filter((item) =>
                   selectedIds.includes(item.id)
                 );
+                // console.log(selectedItems);
 
                 return (
-                  <div className={this.classes.chips}>
+                  <div className={this.props.classes.chips}>
                     {selectedItems.map((selectedVal) => (
                       <Chip
                         key={selectedVal.id}
-                        label={selectedVal.title}
-                        className={this.classes.chip}
+                        label={selectedVal.username}
+                        className={this.props.classes.chip}
                       />
                     ))}
                   </div>
@@ -203,13 +165,13 @@ class Note extends Component {
               }}
               MenuProps={MenuProps}
             >
-              {names.map((user) => (
+              {this.props.users.map((user) => (
                 <MenuItem
                   key={user.id}
                   value={user.id}
                   // style={theme.typography.fontWeightMedium}
                 >
-                  {user.title}
+                  {user.username}
                 </MenuItem>
               ))}
             </Select>
@@ -223,4 +185,43 @@ class Note extends Component {
   }
 }
 
-export default withStyles(styles)(Note);
+const styles = {
+  formControl: {
+    margin: 5,
+    minWidth: 300,
+    maxWidth: 500,
+    padding: 5,
+  },
+  chips: {
+    display: "flex",
+    flexWrap: "wrap",
+  },
+  chip: {
+    margin: 2,
+  },
+  noLabel: {
+    marginTop: 5,
+  },
+};
+
+Note.propTypes = {
+  getUsersLoading: PropTypes.bool.isRequired,
+  getUsersFailed: PropTypes.bool.isRequired,
+  users: PropTypes.array.isRequired,
+  addNoteLoading: PropTypes.bool.isRequired,
+  addNoteFailed: PropTypes.bool.isRequired,
+  addNoteSuccess: PropTypes.bool.isRequired,
+};
+
+const mapStateToProps = (state) => ({
+  getUsersLoading: state.usersReducer.getUsersLoading,
+  getUsersFailed: state.usersReducer.getUsersFailed,
+  users: state.usersReducer.users,
+  addNoteLoading: state.notesReducer.addNoteLoading,
+  addNoteFailed: state.notesReducer.addNoteFailed,
+  addNoteSuccess: state.notesReducer.addNoteSuccess,
+});
+
+export default connect(mapStateToProps, { getUsers, addNote })(
+  withStyles(styles)(Note)
+);

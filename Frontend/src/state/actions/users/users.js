@@ -1,5 +1,5 @@
 import axios from "axios";
-import { URL } from "../url";
+import URL from "../url";
 import {
   GET_USERS_FAILED,
   GET_USERS_LOADING,
@@ -21,7 +21,7 @@ export const getUsers = () => (dispatch, getState) => {
   // GET ALL USERS
   dispatch({ type: GET_USERS_LOADING });
   axios
-    .get(`${URL}/api/v1/users/`, tokenConfig(getState))
+    .get(`${URL}/api/v1/auth/users/`, tokenConfig(getState))
     .then((res) => {
       dispatch({
         type: GET_USERS_SUCCESS,
@@ -53,7 +53,7 @@ export const addUser = (user) => (dispatch, getState) => {
   dispatch({ type: ADD_USER_LOADING });
 
   axios
-    .post(`${URL}/api/v1/users/`, user, tokenConfig(getState))
+    .post(`${URL}/api/v1/auth/users/`, user, tokenConfig(getState))
     .then((res) => {
       dispatch(createMessage({ success: "User Saved" }));
       dispatch({
@@ -85,7 +85,7 @@ export const patchUser = (id, user) => (dispatch, getState) => {
   // PATCH USER
   dispatch({ type: PATCH_USER_LOADING });
   axios
-    .patch(`${URL}/api/v1/users/${id}/`, user, tokenConfig(getState))
+    .patch(`${URL}/api/v1/auth/users/${id}/`, user, tokenConfig(getState))
     .then((res) => {
       dispatch(createMessage({ success: "User Updated" }));
       dispatch({
@@ -117,7 +117,7 @@ export const deleteUser = (id) => (dispatch, getState) => {
   // DELETE USER
   dispatch({ type: DELETE_USER_LOADING });
   axios
-    .delete(`${URL}/api/v1/users/${id}/`, tokenConfig(getState))
+    .delete(`${URL}/api/v1/auth/users/${id}/`, tokenConfig(getState))
     .then((res) => {
       dispatch(createMessage({ success: "User Deleted" }));
       dispatch({
