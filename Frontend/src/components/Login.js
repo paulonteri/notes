@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { login } from "../state/actions/auth/auth";
+import { login, loadUser } from "../state/actions/auth/auth";
 import {
   FormControl,
   Input,
@@ -35,6 +35,10 @@ class Login extends Component {
 
     this.props.login(username, password);
   };
+
+  componentDidMount() {
+    this.props.loadUser();
+  }
 
   render() {
     if (this.props.isAuthenticated) {
@@ -105,4 +109,6 @@ const mapStateToProps = (state) => ({
   isLoading: state.authReducer.isLoading,
 });
 
-export default connect(mapStateToProps, { login })(withStyles(styles)(Login));
+export default connect(mapStateToProps, { login, loadUser })(
+  withStyles(styles)(Login)
+);
