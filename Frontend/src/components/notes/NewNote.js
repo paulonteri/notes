@@ -205,7 +205,7 @@ const styles = {
   formControlLarge: {
     margin: 5,
     width: "80%",
-    minWidth: 400,
+    minWidth: 300,
     maxWidth: 1000,
     padding: 5,
   },

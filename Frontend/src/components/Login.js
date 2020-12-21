@@ -98,7 +98,7 @@ class Login extends Component {
 const styles = {
   formControl: {
     margin: 5,
-    minWidth: 400,
+    minWidth: 300,
     maxWidth: 700,
     padding: 5,
   },
