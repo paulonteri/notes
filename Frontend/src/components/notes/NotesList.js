@@ -40,6 +40,7 @@ export const NotesList = (props) => {
 
   useEffect(() => {
     props.getNotes();
+
     // eslint-disable-next-line
   }, []);
 

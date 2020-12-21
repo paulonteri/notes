@@ -99,7 +99,10 @@ class NewNote extends Component {
             // backgroundColor: "red",
           }}
         >
-          <FormControl size="medium" style={{ width: "270px" }}>
+          <FormControl
+            size="medium"
+            className={this.props.classes.formControlLarge}
+          >
             <InputLabel htmlFor="title">Title*</InputLabel>
             <Input
               id="title"
@@ -113,10 +116,7 @@ class NewNote extends Component {
           </FormControl>
           <FormControl
             size="medium"
-            style={{
-              width: "80%",
-              padding: "10px 5px",
-            }}
+            className={this.props.classes.formControlLarge}
           >
             <TextField
               label="Note"
@@ -190,6 +190,14 @@ const styles = {
     margin: 5,
     minWidth: 300,
     maxWidth: 500,
+    padding: 5,
+  },
+
+  formControlLarge: {
+    margin: 5,
+    width: "80%",
+    minWidth: 400,
+    maxWidth: 1000,
     padding: 5,
   },
   chips: {

@@ -92,7 +92,7 @@ class EditNoteForm extends Component {
           }}
         >
           <Fragment>
-            <FormControl size="medium" style={{ width: "270px" }}>
+            <FormControl className={this.props.classes.formControlLarge}>
               <InputLabel htmlFor="title">Title</InputLabel>
               <Input
                 id="title"
@@ -103,13 +103,7 @@ class EditNoteForm extends Component {
                 // disabled={true}
               />
             </FormControl>
-            <FormControl
-              size="medium"
-              style={{
-                width: "80%",
-                padding: "10px 5px",
-              }}
-            >
+            <FormControl className={this.props.classes.formControlLarge}>
               <TextField
                 label="Note"
                 multiline
@@ -189,6 +183,14 @@ const styles = {
     maxWidth: 500,
     padding: 5,
   },
+  formControlLarge: {
+    margin: 5,
+    width: "80%",
+    minWidth: 400,
+    maxWidth: 1000,
+    padding: 5,
+  },
+
   chips: {
     display: "flex",
     flexWrap: "wrap",
