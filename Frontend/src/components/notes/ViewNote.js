@@ -65,7 +65,7 @@ class ViewNoteForm extends Component {
           <Fragment>
             <Link to={`/note/${this.props.noteId}/edit`}>
               <Button color="primary" variant="contained">
-                Modify Note
+                {this.props.isKiswahili ? "Badilisha Maandishi" : "Edit Note"}
               </Button>
             </Link>
             <FormControl
@@ -74,7 +74,7 @@ class ViewNoteForm extends Component {
             >
               <TextField
                 id="title"
-                label="Title"
+                label={this.props.isKiswahili ? "Kichwa" : "Title"}
                 aria-describedby="my-helper-text"
                 value={this.state.title}
                 readOnly
@@ -87,7 +87,7 @@ class ViewNoteForm extends Component {
               className={this.props.classes.formControlLarge}
             >
               <TextField
-                label="Note"
+                label={this.props.isKiswahili ? "Maandishi" : "Note"}
                 multiline
                 rows={6}
                 variant="filled"
@@ -100,7 +100,9 @@ class ViewNoteForm extends Component {
             {this.props.noteDetail && this.props.noteDetail.shared_to ? (
               <FormControl className={this.props.classes.formControl}>
                 <InputLabel id="demo-mutiple-chip-label">
-                  Shared with
+                  {this.props.isKiswahili
+                    ? "Shiriki maandishi na "
+                    : "Share note with..."}
                 </InputLabel>
                 <Select
                   labelId="demo-mutiple-chip-label"
@@ -206,6 +208,7 @@ const ViewNote = (props) => {
           getNoteDetailLoading={props.getNoteDetailLoading}
           noteDetail={props.noteDetail}
           users={props.users}
+          isKiswahili={props.isKiswahili}
         />
       </>
     );

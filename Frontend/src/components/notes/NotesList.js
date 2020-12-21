@@ -54,7 +54,7 @@ export const NotesList = (props) => {
 
   return (
     <div>
-      <div>Notes</div>
+      <div>{props.isKiswahili ? "Maandishi" : "Notes"}</div>
       {props.notes.map((note) => {
         return (
           <Card className={classes.root} key={note.id} variant="outlined">
@@ -70,7 +70,7 @@ export const NotesList = (props) => {
               <div>
                 <Link to={`/note/${note.id}`}>
                   <Button variant="contained" color="primary">
-                    View Note
+                    {props.isKiswahili ? "Anagalia Maandishi" : "View Note"}
                   </Button>
                 </Link>
               </div>

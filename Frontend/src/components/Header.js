@@ -63,6 +63,7 @@ const Header = (props) => {
 
   useEffect(() => {
     props.applyFont();
+    props.currLanguage();
     // eslint-disable-next-line
   }, [location.pathname]);
 
@@ -96,7 +97,7 @@ const Header = (props) => {
                     marginRight: props.isLargeFont ? 10 : 5,
                   }}
                 />
-                <h2>My Notes {matches}</h2>
+                <h2>{props.isKiswahili ? "Maandishi yangu" : "My Notes"}</h2>
               </Link>
             ) : (
               <Container className={classes.topContainer}>
@@ -115,7 +116,7 @@ const Header = (props) => {
                       marginRight: props.isLargeFont ? 10 : 5,
                     }}
                   />
-                  <h2>My Notes {matches}</h2>
+                  <h2>{props.isKiswahili ? "Maandishi yangu" : "My Notes"}</h2>
                 </Link>
                 <div onClick={onIconClick}>
                   <MenuIcon
@@ -134,7 +135,7 @@ const Header = (props) => {
                   className={matches ? classes.buttonSmall : classes.button}
                   variant="contained"
                 >
-                  Shared Notes
+                  {props.isKiswahili ? "Maandishi ya wengine" : "Shared Notes"}
                 </Button>
               </Link>
               <Link to={`/note`}>
@@ -142,7 +143,7 @@ const Header = (props) => {
                   className={matches ? classes.buttonSmall : classes.button}
                   variant="contained"
                 >
-                  New Note
+                  {props.isKiswahili ? "Maandishi mapya" : "New note"}
                 </Button>
               </Link>
               <Button
@@ -150,14 +151,27 @@ const Header = (props) => {
                 variant="contained"
                 onClick={props.handleFont}
               >
-                {props.isLargeFont ? "Small Font" : "Large Font"}
+                {!props.isLargeFont
+                  ? props.isKiswahili
+                    ? "Herufi kubwa"
+                    : "Large font"
+                  : props.isKiswahili
+                  ? "Herufi Ndogo "
+                  : "Small font"}
               </Button>
               <Button
                 className={matches ? classes.buttonSmall : classes.button}
                 variant="contained"
                 onClick={props.handleThemeChange}
               >
-                Theme
+                {props.isKiswahili ? "Rangi" : "Theme"}
+              </Button>
+              <Button
+                className={matches ? classes.buttonSmall : classes.button}
+                variant="contained"
+                onClick={props.handleLanguageChange}
+              >
+                {props.isKiswahili ? "Kingereza/English" : "Kiswahili"}
               </Button>
             </Container>
           ) : null}

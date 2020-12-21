@@ -93,7 +93,9 @@ class EditNoteForm extends Component {
         >
           <Fragment>
             <FormControl className={this.props.classes.formControlLarge}>
-              <InputLabel htmlFor="title">Title</InputLabel>
+              <InputLabel htmlFor="title">
+                {this.props.isKiswahili ? "Kichwa" : "Title"}
+              </InputLabel>
               <Input
                 id="title"
                 aria-describedby="my-helper-text"
@@ -105,7 +107,7 @@ class EditNoteForm extends Component {
             </FormControl>
             <FormControl className={this.props.classes.formControlLarge}>
               <TextField
-                label="Note"
+                label={this.props.isKiswahili ? "Maandishi" : "Note"}
                 multiline
                 rows={6}
                 variant="outlined"
@@ -120,7 +122,9 @@ class EditNoteForm extends Component {
             {this.props.noteDetail && this.props.noteDetail.shared_to ? (
               <FormControl className={this.props.classes.formControl}>
                 <InputLabel id="demo-mutiple-chip-label">
-                  Share note with
+                  {this.props.isKiswahili
+                    ? "Shiriki maandishi na... "
+                    : "Share note with..."}
                 </InputLabel>
                 <Select
                   labelId="demo-mutiple-chip-label"
@@ -167,7 +171,7 @@ class EditNoteForm extends Component {
               <></>
             )}
             <Button type="submit" color="primary" variant="contained">
-              Save Note
+              {this.props.isKiswahili ? "Wasislisha Maandishi" : "Save Note"}
             </Button>
           </Fragment>
         </form>
@@ -247,6 +251,7 @@ const EditNote = (props) => {
           noteDetail={props.noteDetail}
           setisSubmited={setisSubmited}
           users={props.users}
+          isKiswahili={props.isKiswahili}
         />
       </>
     );

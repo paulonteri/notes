@@ -31,6 +31,26 @@ function App() {
   const [isKiswahili, setisKiswahili] = useState(false);
   const [isLargeFont, setisLargeFont] = useState(false);
 
+  const handleLanguageChange = () => {
+    localStorage.setItem("isKiswahili", !isKiswahili);
+    setisKiswahili(!isKiswahili);
+  };
+
+  function currLanguage() {
+    const lang = localStorage.getItem("isKiswahili");
+    console.log("isKiswahili", lang);
+
+    if (lang && lang === "true") {
+      if (!isKiswahili) {
+        setisKiswahili(true);
+      }
+    } else {
+      if (isKiswahili) {
+        setisKiswahili(false);
+      }
+    }
+  }
+
   function currTheme() {
     const drkTheme = localStorage.getItem("darkState");
 
@@ -49,8 +69,8 @@ function App() {
   });
 
   const handleThemeChange = () => {
-    setDarkState(!darkState);
     localStorage.setItem("darkState", !darkState);
+    setDarkState(!darkState);
   };
 
   function largeFont() {
@@ -97,9 +117,11 @@ function App() {
   function applyFont() {
     const LFont = localStorage.getItem("largeFont");
 
-    if (LFont && LFont === "true") {
+    if (LFont && LFont === "true" && isLargeFont === false) {
       console.log("Large font");
       return largeFont();
+    } else if (isLargeFont) {
+      return smallFont();
     }
   }
 
@@ -121,7 +143,9 @@ function App() {
               setisKiswahili={setisKiswahili}
               handleFont={handleFont}
               applyFont={applyFont}
+              currLanguage={currLanguage}
               handleThemeChange={handleThemeChange}
+              handleLanguageChange={handleLanguageChange}
             />
             <Switch>
               <PrivateRoute

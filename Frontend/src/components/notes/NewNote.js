@@ -103,7 +103,10 @@ class NewNote extends Component {
             size="medium"
             className={this.props.classes.formControlLarge}
           >
-            <InputLabel htmlFor="title">Title*</InputLabel>
+            <InputLabel htmlFor="title">
+              {" "}
+              {this.props.isKiswahili ? "Kichwa*" : "Title*"}
+            </InputLabel>
             <Input
               id="title"
               aria-describedby="my-helper-text"
@@ -111,7 +114,9 @@ class NewNote extends Component {
               required
             />
             <FormHelperText id="my-helper-text">
-              Give your notes a title
+              {this.props.isKiswahili
+                ? "Kichwa ya maadishi"
+                : " Give your notes a title"}
             </FormHelperText>
           </FormControl>
           <FormControl
@@ -119,7 +124,7 @@ class NewNote extends Component {
             className={this.props.classes.formControlLarge}
           >
             <TextField
-              label="Note"
+              label={this.props.isKiswahili ? "Maandishi" : "Note"}
               multiline
               rows={4}
               variant="outlined"
@@ -128,12 +133,16 @@ class NewNote extends Component {
               onChange={this.myChangeHandler}
             />
             <FormHelperText id="my-helper-text">
-              Write down your notes
+              {this.props.isKiswahili
+                ? "Andika Maandishi"
+                : "Write down your notes"}
             </FormHelperText>
           </FormControl>
           <FormControl className={this.props.classes.formControl}>
             <InputLabel id="demo-mutiple-chip-label">
-              Share note with
+              {this.props.isKiswahili
+                ? "Shiriki maandishi na... "
+                : "Share note with..."}
             </InputLabel>
             <Select
               labelId="demo-mutiple-chip-label"
@@ -177,7 +186,7 @@ class NewNote extends Component {
             </Select>
           </FormControl>
           <Button type="submit" color="primary" variant="contained">
-            Save Note
+            {this.props.isKiswahili ? "Wasislisha Maandishi" : "Save Note"}
           </Button>
         </form>
       </div>
