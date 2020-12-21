@@ -189,6 +189,10 @@ const ViewNote = (props) => {
     // eslint-disable-next-line
   }, [props.noteId]);
 
+  useEffect(() => {
+    props.applyChanges();
+  });
+
   if (props.getNoteDetailLoading || props.getUsersLoading) {
     // spinner while loading
     return <SpinnerLarge />;

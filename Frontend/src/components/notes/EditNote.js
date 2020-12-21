@@ -223,6 +223,10 @@ const EditNote = (props) => {
     // eslint-disable-next-line
   }, [props.patchNoteLoading]);
 
+  useEffect(() => {
+    props.applyChanges();
+  });
+
   if (
     props.getNoteDetailLoading ||
     props.patchNoteLoading ||

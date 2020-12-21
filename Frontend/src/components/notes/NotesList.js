@@ -15,7 +15,6 @@ const useStyles = makeStyles({
     minWidth: 275,
     margin: 5,
     marginBottom: 10,
-    backgroundColor: "#f7f7f7",
   },
   cardContent: {
     display: "flex",
@@ -44,10 +43,15 @@ export const NotesList = (props) => {
     // eslint-disable-next-line
   }, []);
 
+  useEffect(() => {
+    props.applyChanges();
+  });
+
   if (props.getNotesLoading) {
     // spinner while loading
     return <SpinnerLarge />;
   }
+
   return (
     <div>
       <div>Notes</div>

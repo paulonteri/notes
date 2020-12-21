@@ -8,6 +8,7 @@ const PrivateRoute = ({
   isAuthenticated,
   isLoading,
   isKiswahili,
+  applyChanges,
   ...rest
 }) => {
   return (
@@ -19,7 +20,13 @@ const PrivateRoute = ({
           !process.env.NODE_ENV ||
           process.env.NODE_ENV === "development"
         ) {
-          return <Component {...props} isKiswahili={isKiswahili} />;
+          return (
+            <Component
+              {...props}
+              isKiswahili={isKiswahili}
+              applyChanges={applyChanges}
+            />
+          );
         } else if (isAuthenticated === false) {
           return <Redirect to="/login" />;
         } else if (isLoading) {
