@@ -12,6 +12,7 @@ import { Redirect } from "react-router-dom";
 import MenuItem from "@material-ui/core/MenuItem";
 import Select from "@material-ui/core/Select";
 import { withStyles } from "@material-ui/core/styles";
+import { Link } from "react-router-dom";
 
 class Register extends Component {
   state = {
@@ -83,10 +84,7 @@ class Register extends Component {
             // backgroundColor: "red",
           }}
         >
-          <FormControl
-            size="medium"
-            style={{ width: "300px", marginBottom: 15 }}
-          >
+          <FormControl size="medium" className={this.props.classes.formControl}>
             <InputLabel htmlFor="first_name">First name</InputLabel>
             <Input
               id="first_name"
@@ -97,10 +95,7 @@ class Register extends Component {
           </FormControl>
           {/*                <----- *** ----->           */}
 
-          <FormControl
-            size="medium"
-            style={{ width: "300px", marginBottom: 15 }}
-          >
+          <FormControl size="medium" className={this.props.classes.formControl}>
             <InputLabel htmlFor="last_name">Last name</InputLabel>
             <Input
               id="last_name"
@@ -111,10 +106,7 @@ class Register extends Component {
           </FormControl>
           {/*                <----- *** ----->           */}
 
-          <FormControl
-            size="medium"
-            style={{ width: "300px", marginBottom: 11 }}
-          >
+          <FormControl size="medium" className={this.props.classes.formControl}>
             <InputLabel htmlFor="username">Username</InputLabel>
             <Input
               id="username"
@@ -128,10 +120,7 @@ class Register extends Component {
           </FormControl>
           {/*                <----- *** ----->           */}
 
-          <FormControl
-            size="medium"
-            style={{ width: "300px", marginBottom: 15 }}
-          >
+          <FormControl size="medium" className={this.props.classes.formControl}>
             <InputLabel htmlFor="email">Email</InputLabel>
             <Input
               id="email"
@@ -146,10 +135,7 @@ class Register extends Component {
           </FormControl>
           {/*                <----- *** ----->           */}
 
-          <FormControl
-            size="medium"
-            style={{ width: "300px", marginBottom: 15 }}
-          >
+          <FormControl size="medium" className={this.props.classes.formControl}>
             <InputLabel htmlFor="password">Password</InputLabel>
             <Input
               id="password"
@@ -164,7 +150,7 @@ class Register extends Component {
           </FormControl>
           {/*                <----- *** ----->           */}
 
-          <FormControl className={this.props.classes.formControl}>
+          <FormControl className={this.props.classes.formControlSmall}>
             <Select
               value={this.state.role}
               onChange={this.handleDropdownChange}
@@ -182,6 +168,13 @@ class Register extends Component {
           </FormControl>
           {/*                <----- *** ----->           */}
 
+          <FormControl size="medium" className={this.props.classes.formControl}>
+            <FormHelperText>Have an account?</FormHelperText>
+            <Link to={`/login`}>
+              <p className={this.props.classes.formControl}>Login Here</p>
+            </Link>
+          </FormControl>
+
           <Button type="submit" color="primary" variant="contained">
             Register
           </Button>
@@ -192,12 +185,18 @@ class Register extends Component {
 }
 
 const styles = {
-  formControl: {
+  formControlSmall: {
     marginBottom: 20,
     width: "300px",
   },
   selectEmpty: {
     marginTop: 10,
+  },
+  formControl: {
+    margin: 5,
+    minWidth: 400,
+    maxWidth: 700,
+    padding: 5,
   },
 };
 

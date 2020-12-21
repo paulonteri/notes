@@ -9,6 +9,8 @@ import {
   Button,
 } from "@material-ui/core";
 import { Redirect } from "react-router-dom";
+import { withStyles } from "@material-ui/core/styles";
+import { Link } from "react-router-dom";
 
 class Login extends Component {
   state = { username: "", password: "" };
@@ -53,7 +55,7 @@ class Login extends Component {
             // backgroundColor: "red",
           }}
         >
-          <FormControl size="medium" style={{ width: "270px" }}>
+          <FormControl size="medium" className={this.props.classes.formControl}>
             <InputLabel htmlFor="username">Username</InputLabel>
             <Input
               id="username"
@@ -61,11 +63,9 @@ class Login extends Component {
               onChange={this.myChangeHandler}
               required
             />
-            <FormHelperText id="my-helper-text">
-              You're unique username
-            </FormHelperText>
+            <FormHelperText>You're unique username</FormHelperText>
           </FormControl>
-          <FormControl size="medium" style={{ width: "270px" }}>
+          <FormControl size="medium" className={this.props.classes.formControl}>
             <InputLabel htmlFor="password">Password</InputLabel>
             <Input
               id="password"
@@ -74,7 +74,13 @@ class Login extends Component {
               onChange={this.myChangeHandler}
               required
             />
-            <FormHelperText id="my-helper-text"></FormHelperText>
+            <FormHelperText></FormHelperText>
+          </FormControl>
+          <FormControl size="medium" className={this.props.classes.formControl}>
+            <FormHelperText>Don't have an account?</FormHelperText>
+            <Link to={`/register`}>
+              <p className={this.props.classes.formControl}>Register Here</p>
+            </Link>
           </FormControl>
           <Button type="submit" color="primary" variant="contained">
             Login
@@ -85,9 +91,18 @@ class Login extends Component {
   }
 }
 
+const styles = {
+  formControl: {
+    margin: 5,
+    minWidth: 400,
+    maxWidth: 700,
+    padding: 5,
+  },
+};
+
 const mapStateToProps = (state) => ({
   isAuthenticated: state.authReducer.isAuthenticated,
   isLoading: state.authReducer.isLoading,
 });
 
-export default connect(mapStateToProps, { login })(Login);
+export default connect(mapStateToProps, { login })(withStyles(styles)(Login));
