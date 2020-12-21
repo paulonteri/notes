@@ -74,23 +74,28 @@ function App() {
   };
 
   function largeFont() {
+    console.log("largeFont()");
+    setisLargeFont(true);
+    localStorage.setItem("largeFont", true);
+
     const mediumElements = document.querySelectorAll(
       "div, p, span, input, label"
     );
     mediumElements.forEach((element) => {
-      element.setAttribute("style", "font-size: x-large !important");
+      element.setAttribute("style", "font-size: large !important");
     });
 
     const largeElements = document.querySelectorAll("h2");
     largeElements.forEach((element) => {
-      element.setAttribute("style", "font-size: xx-large !important");
+      element.setAttribute("style", "font-size: x-large !important");
     });
-
-    localStorage.setItem("largeFont", true);
-    setisLargeFont(true);
   }
 
   function smallFont() {
+    console.log("smallFont()");
+    setisLargeFont(false);
+    localStorage.setItem("largeFont", false);
+
     const mediumElements = document.querySelectorAll(
       "div, p, span, input, label"
     );
@@ -102,9 +107,6 @@ function App() {
     largeElements.forEach((element) => {
       element.style.cssText = "font-size: large !important";
     });
-
-    localStorage.setItem("largeFont", false);
-    setisLargeFont(false);
   }
 
   function handleFont() {
@@ -117,8 +119,7 @@ function App() {
   function applyFont() {
     const LFont = localStorage.getItem("largeFont");
 
-    if (LFont && LFont === "true" && isLargeFont === false) {
-      console.log("Large font");
+    if (LFont && LFont === "true") {
       return largeFont();
     } else if (isLargeFont) {
       return smallFont();
@@ -126,7 +127,9 @@ function App() {
   }
 
   function applyChanges() {
-    applyFont();
+    setTimeout(function () {
+      applyFont();
+    }, 50);
   }
 
   usePageViews();

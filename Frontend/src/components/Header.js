@@ -62,8 +62,10 @@ const Header = (props) => {
   const [isVisible, setisVisible] = useState(false);
 
   useEffect(() => {
-    props.applyFont();
-    props.currLanguage();
+    setTimeout(function () {
+      props.applyFont();
+      props.currLanguage();
+    }, 5);
     // eslint-disable-next-line
   }, [location.pathname]);
 
