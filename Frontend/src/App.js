@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import HomePage from "./components/HomePage";
 // used to connect Redux to React & takes in the store as a prop
 import { Provider } from "react-redux";
@@ -31,7 +31,16 @@ function App() {
   const [isKiswahili, setisKiswahili] = useState(false);
   const [isLargeFont, setisLargeFont] = useState(false);
 
-  const [darkState, setDarkState] = useState(true);
+  function currTheme() {
+    const drkTheme = localStorage.getItem("darkState");
+
+    if (drkTheme && drkTheme === "true") {
+      return true;
+    }
+    return false;
+  }
+
+  const [darkState, setDarkState] = useState(currTheme());
   const palletType = darkState ? "dark" : "light";
   const theme = createMuiTheme({
     palette: {
@@ -41,6 +50,7 @@ function App() {
 
   const handleThemeChange = () => {
     setDarkState(!darkState);
+    localStorage.setItem("darkState", !darkState);
   };
 
   function largeFont() {
@@ -48,12 +58,12 @@ function App() {
       "div, p, span, input, label"
     );
     mediumElements.forEach((element) => {
-      element.setAttribute("style", "font-size: larger !important");
+      element.setAttribute("style", "font-size: x-large !important");
     });
 
     const largeElements = document.querySelectorAll("h2");
     largeElements.forEach((element) => {
-      element.setAttribute("style", "font-size: x-large !important");
+      element.setAttribute("style", "font-size: xx-large !important");
     });
 
     localStorage.setItem("largeFont", true);
@@ -106,6 +116,7 @@ function App() {
           <HashRouter>
             <Header
               isKiswahili={isKiswahili}
+              applyChanges={applyChanges}
               setisKiswahili={setisKiswahili}
               handleFont={handleFont}
               applyFont={applyFont}
@@ -117,43 +128,56 @@ function App() {
                 path="/note"
                 component={NewNote}
                 isKiswahili={isKiswahili}
+                applyChanges={applyChanges}
               />
               <PrivateRoute
                 exact
                 path="/note/:noteId/edit"
                 component={EditNote}
                 isKiswahili={isKiswahili}
+                applyChanges={applyChanges}
               />
               <PrivateRoute
                 exact
                 path="/note/:noteId"
                 component={ViewNote}
                 isKiswahili={isKiswahili}
+                applyChanges={applyChanges}
               />
               <PrivateRoute
                 exact
                 path="/notes"
                 component={NotesList}
                 isKiswahili={isKiswahili}
+                applyChanges={applyChanges}
               />
               <PrivateRoute
                 exact
                 path="/home"
                 component={HomePage}
                 isKiswahili={isKiswahili}
+                applyChanges={applyChanges}
               />
               <Route
                 exact
                 path="/login"
                 render={(props) => (
-                  <Login {...props} isKiswahili={isKiswahili} />
+                  <Login
+                    {...props}
+                    isKiswahili={isKiswahili}
+                    applyChanges={applyChanges}
+                  />
                 )}
               />
               <Route
                 exact
                 path="/register"
                 render={(props) => (
-                  <Register {...props} isKiswahili={isKiswahili} />
+                  <Register
+                    {...props}
+                    isKiswahili={isKiswahili}
+                    applyChanges={applyChanges}
+                  />
                 )}
               />
               {/* <PrivateRoute path="/" component={Dashboard} /> */}
@@ -162,6 +186,7 @@ function App() {
                 path="/"
                 component={NotesList}
                 isKiswahili={isKiswahili}
+                applyChanges={applyChanges}
               />
             </Switch>
           </HashRouter>
