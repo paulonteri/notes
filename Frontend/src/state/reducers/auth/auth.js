@@ -81,6 +81,7 @@ export default function (state = initialState, action) {
       setToken(action.payload.token);
       return {
         ...state,
+        ...action.payload,
         registerUserLoading: false,
         registerUserFailed: false,
         registerUserSuccess: true,
