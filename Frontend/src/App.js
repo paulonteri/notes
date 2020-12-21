@@ -17,12 +17,58 @@ import PrivateRoute from "./components/PrivateRoute";
 
 function App() {
   const [isKiswahili, setisKiswahili] = useState(false);
+  const [isLargeFont, setisLargeFont] = useState(false);
+
+  function largeFont() {
+    const mediumElements = document.querySelectorAll(
+      "div, p, span, input, label"
+    );
+    mediumElements.forEach((element) => {
+      element.setAttribute("style", "font-size: large !important");
+    });
+
+    const largeElements = document.querySelectorAll("h2");
+    largeElements.forEach((element) => {
+      element.setAttribute("style", "font-size: larger !important");
+    });
+
+    localStorage.setItem("largeFont", true);
+    setisLargeFont(true);
+  }
+
+  function smallFont() {
+    const mediumElements = document.querySelectorAll(
+      "div, p, span, input, label"
+    );
+    mediumElements.forEach((element) => {
+      element.style.cssText = "font-size: medium !important";
+    });
+
+    const largeElements = document.querySelectorAll("h2");
+    largeElements.forEach((element) => {
+      element.style.cssText = "font-size: large !important";
+    });
+
+    localStorage.setItem("largeFont", false);
+    setisLargeFont(false);
+  }
+
+  function handleFont() {
+    if (isLargeFont) {
+      return smallFont();
+    }
+    return largeFont();
+  }
 
   return (
     <>
       <Provider store={store}>
         <HashRouter>
-          <Header isKiswahili={isKiswahili} setisKiswahili={setisKiswahili} />
+          <Header
+            isKiswahili={isKiswahili}
+            setisKiswahili={setisKiswahili}
+            handleFont={handleFont}
+          />
           <Switch>
             <PrivateRoute
               exact

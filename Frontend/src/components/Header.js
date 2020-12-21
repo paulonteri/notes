@@ -29,6 +29,7 @@ const useStyles = makeStyles({
 
 const Header = (props) => {
   const classes = useStyles();
+
   return (
     <Container className={classes.root}>
       {props.isAuthenticated ? (
@@ -49,6 +50,13 @@ const Header = (props) => {
                 New Note
               </Button>
             </Link>
+            <Button
+              className={classes.button}
+              variant="contained"
+              onClick={props.handleFont}
+            >
+              Large Font
+            </Button>
           </Container>
         </>
       ) : (
