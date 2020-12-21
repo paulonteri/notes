@@ -1,10 +1,13 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import Button from "@material-ui/core/Button";
 import { connect } from "react-redux";
 import { useLocation } from "react-router-dom";
+import useMediaQuery from "@material-ui/core/useMediaQuery";
+import MenuIcon from "@material-ui/icons/Menu";
+import LibraryBooksIcon from "@material-ui/icons/LibraryBooks";
 
 const useStyles = makeStyles({
   root: {
@@ -26,57 +29,140 @@ const useStyles = makeStyles({
   button: {
     margin: 5,
   },
+
+  rootSmall: {
+    margin: 5,
+    marginBottom: 10,
+    // backgroundColor: "red",
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "space-between",
+  },
+  buttonsSmall: {
+    // backgroundColor: "green",
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+  },
+  buttonSmall: {
+    margin: 15,
+    width: "400px",
+  },
+  topContainer: {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-between",
+  },
 });
 
 const Header = (props) => {
   const classes = useStyles();
-
   const location = useLocation();
+  const matches = useMediaQuery("(max-width:800px)");
+  const [isVisible, setisVisible] = useState(false);
 
   useEffect(() => {
-    console.log("route has been changed");
-    console.log(location.pathname);
     props.applyFont();
   }, [location.pathname]);
 
+  useEffect(() => {
+    console.log(matches);
+  }, [matches]);
+
+  function onIconClick() {
+    console.log("clicked");
+    setisVisible(!isVisible);
+  }
+
   return (
-    <Container className={classes.root}>
+    <Container className={matches ? classes.rootSmall : classes.root}>
       {props.isAuthenticated ? (
         <>
-          <Container style={{ flex: 0.2 }}>
-            <Link to={`/notes`}>
-              <p>Notes App</p>
-            </Link>
+          <Container>
+            {!matches ? (
+              <Link
+                to={`/notes`}
+                style={{
+                  display: "flex",
+                  flexDirection: "row",
+                  alignContent: "center",
+                }}
+              >
+                <LibraryBooksIcon
+                  style={{
+                    marginTop: props.isLargeFont ? 32 : 15,
+                    fontSize: props.isLargeFont ? 35 : 25,
+                    marginRight: props.isLargeFont ? 10 : 5,
+                  }}
+                />
+                <h2>My Notes {matches}</h2>
+              </Link>
+            ) : (
+              <Container className={classes.topContainer}>
+                <Link
+                  to={`/notes`}
+                  style={{
+                    display: "flex",
+                    flexDirection: "row",
+                    alignContent: "center",
+                  }}
+                >
+                  <LibraryBooksIcon
+                    style={{
+                      marginTop: props.isLargeFont ? 32 : 15,
+                      fontSize: props.isLargeFont ? 35 : 25,
+                      marginRight: props.isLargeFont ? 10 : 5,
+                    }}
+                  />
+                  <h2>My Notes {matches}</h2>
+                </Link>
+                <div onClick={onIconClick}>
+                  <MenuIcon
+                    style={{ fontSize: 50, margin: 17, color: "purple" }}
+                  />
+                </div>
+              </Container>
+            )}
           </Container>
-          <Container className={classes.buttons}>
-            <Link to={`/note`}>
-              <Button className={classes.button} variant="contained">
-                Shared Notes
-              </Button>
-            </Link>
-            <Link to={`/note`}>
-              <Button className={classes.button} variant="contained">
-                New Note
-              </Button>
-            </Link>
-            <Button
-              className={classes.button}
-              variant="contained"
-              onClick={props.handleFont}
+          {!matches || isVisible ? (
+            <Container
+              className={matches ? classes.buttonsSmall : classes.buttons}
             >
-              Large Font
-            </Button>
-            <Button
-              className={classes.button}
-              variant="contained"
-              onClick={props.handleThemeChange}
-            >
-              Theme
-            </Button>
-          </Container>
+              <Link to={`/note`}>
+                <Button
+                  className={matches ? classes.buttonSmall : classes.button}
+                  variant="contained"
+                >
+                  Shared Notes
+                </Button>
+              </Link>
+              <Link to={`/note`}>
+                <Button
+                  className={matches ? classes.buttonSmall : classes.button}
+                  variant="contained"
+                >
+                  New Note
+                </Button>
+              </Link>
+              <Button
+                className={matches ? classes.buttonSmall : classes.button}
+                variant="contained"
+                onClick={props.handleFont}
+              >
+                {props.isLargeFont ? "Small Font" : "Large Font"}
+              </Button>
+              <Button
+                className={matches ? classes.buttonSmall : classes.button}
+                variant="contained"
+                onClick={props.handleThemeChange}
+              >
+                Theme
+              </Button>
+            </Container>
+          ) : null}
         </>
       ) : (
-        <Container style={{ height: 50 }} />
+        <Container style={{ height: 20 }} />
       )}
     </Container>
   );

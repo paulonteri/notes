@@ -116,6 +116,7 @@ function App() {
           <HashRouter>
             <Header
               isKiswahili={isKiswahili}
+              isLargeFont={isLargeFont}
               applyChanges={applyChanges}
               setisKiswahili={setisKiswahili}
               handleFont={handleFont}
