@@ -63,6 +63,7 @@ const Header = (props) => {
 
   useEffect(() => {
     props.applyFont();
+    // eslint-disable-next-line
   }, [location.pathname]);
 
   useEffect(() => {

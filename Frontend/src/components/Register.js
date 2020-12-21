@@ -22,7 +22,6 @@ class Register extends Component {
     role: "",
     first_name: "",
     last_name: "",
-    role: "",
   };
 
   myChangeHandler = (e) => this.setState({ [e.target.id]: e.target.value }); // grab the name and set thet to the value
