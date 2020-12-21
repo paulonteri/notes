@@ -7,6 +7,7 @@ const PrivateRoute = ({
   component: Component,
   isAuthenticated,
   isLoading,
+  isKiswahili,
   ...rest
 }) => {
   return (
@@ -14,7 +15,7 @@ const PrivateRoute = ({
       {...rest}
       render={(props) => {
         if (isAuthenticated) {
-          return <Component {...props} />;
+          return <Component {...props} isKiswahili={isKiswahili} />;
         } else if (isAuthenticated === false) {
           return <Redirect to="/login" />;
         } else if (isLoading) {
