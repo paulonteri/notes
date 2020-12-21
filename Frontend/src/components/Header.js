@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import Button from "@material-ui/core/Button";
 import { connect } from "react-redux";
+import { useLocation } from "react-router-dom";
 
 const useStyles = makeStyles({
   root: {
@@ -29,6 +30,14 @@ const useStyles = makeStyles({
 
 const Header = (props) => {
   const classes = useStyles();
+
+  const location = useLocation();
+
+  useEffect(() => {
+    console.log("route has been changed");
+    console.log(location.pathname);
+    props.applyFont();
+  }, [location.pathname]);
 
   return (
     <Container className={classes.root}>
@@ -56,6 +65,13 @@ const Header = (props) => {
               onClick={props.handleFont}
             >
               Large Font
+            </Button>
+            <Button
+              className={classes.button}
+              variant="contained"
+              onClick={props.handleThemeChange}
+            >
+              Theme
             </Button>
           </Container>
         </>
