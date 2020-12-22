@@ -1,15 +1,17 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
+from django.contrib.auth.models import Group
 
-from .models import User, TestImage
+from .models import User  # , TestImage
+
+admin.site.unregister(Group)
 
 
 class UserAdmin(UserAdmin):
     # Display
     fieldsets = (
         (None, {'fields': ('username', 'email', 'password')}),
-        ('Permissions', {'fields': ('is_staff',
-                                    'is_active', 'is_superuser', 'is_admin',)}),
+        ('Permissions', {'fields': ('role', 'is_admin',)}),
     )
 
     # Create User
@@ -18,8 +20,7 @@ class UserAdmin(UserAdmin):
             'classes': ('wide',),
             'fields': ('username', 'email', 'first_name', 'last_name', 'password1', 'password2'),
         }),
-        ('Permissions', {'fields': ('is_staff', 'role',
-                                    'is_active', 'is_superuser', 'is_admin',)}),
+        ('Permissions', {'fields': ('role', 'is_admin',)}),
     )
 
     # List display
@@ -33,4 +34,6 @@ class UserAdmin(UserAdmin):
 
 admin.site.register(User, UserAdmin)
 
-admin.site.register(TestImage)
+# admin.site.register(TestImage)
+
+admin.site.site_header = "University Notes Website"

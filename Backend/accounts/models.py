@@ -68,6 +68,9 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     objects = UserManager()
 
+    def __str__(self):
+        return "%s - %s" % (self.username, self.email)
+
 
 class TestImage(models.Model):
     image = models.ImageField()
