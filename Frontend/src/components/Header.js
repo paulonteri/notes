@@ -191,7 +191,7 @@ const Header = (props) => {
                   props.handleLanguageChange();
                 }}
               >
-                {props.isKiswahili ? "Kingereza / English" : "Kiswahili"}
+                {props.isKiswahili ? "English" : "Kiswahili"}
               </Button>
               <Button
                 size="small"
@@ -301,7 +301,7 @@ const Header = (props) => {
                   props.handleLanguageChange();
                 }}
               >
-                {props.isKiswahili ? "Kingereza / English" : "Kiswahili"}
+                {props.isKiswahili ? "English" : "Kiswahili"}
               </Button>
             </Container>
           ) : null}

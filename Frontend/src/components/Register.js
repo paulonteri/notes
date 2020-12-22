@@ -84,7 +84,9 @@ class Register extends Component {
           }}
         >
           <FormControl size="medium" className={this.props.classes.formControl}>
-            <InputLabel htmlFor="first_name">First name</InputLabel>
+            <InputLabel htmlFor="first_name">
+              {this.props.isKiswahili ? "Jina la kwanza" : "First name"}
+            </InputLabel>
             <Input
               id="first_name"
               aria-describedby="my-helper-text"
@@ -95,7 +97,10 @@ class Register extends Component {
           {/*                <----- *** ----->           */}
 
           <FormControl size="medium" className={this.props.classes.formControl}>
-            <InputLabel htmlFor="last_name">Last name</InputLabel>
+            <InputLabel htmlFor="last_name">
+              {" "}
+              {this.props.isKiswahili ? "Jina la mwisho" : "Last name"}
+            </InputLabel>
             <Input
               id="last_name"
               aria-describedby="my-helper-text"
@@ -106,7 +111,9 @@ class Register extends Component {
           {/*                <----- *** ----->           */}
 
           <FormControl size="medium" className={this.props.classes.formControl}>
-            <InputLabel htmlFor="username">Username</InputLabel>
+            <InputLabel htmlFor="username">
+              {this.props.isKiswahili ? "Jina la mtumiaji" : "Username"}
+            </InputLabel>
             <Input
               id="username"
               aria-describedby="my-helper-text"
@@ -114,13 +121,17 @@ class Register extends Component {
               required
             />
             <FormHelperText id="my-helper-text">
-              A unique username
+              {this.props.isKiswahili
+                ? "Jina la mtumiaji"
+                : "You're unique username"}
             </FormHelperText>
           </FormControl>
           {/*                <----- *** ----->           */}
 
           <FormControl size="medium" className={this.props.classes.formControl}>
-            <InputLabel htmlFor="email">Email</InputLabel>
+            <InputLabel htmlFor="email">
+              {this.props.isKiswahili ? "Barua pepe" : "Email"}
+            </InputLabel>
             <Input
               id="email"
               aria-describedby="my-helper-text"
@@ -129,13 +140,17 @@ class Register extends Component {
               type={"email"}
             />
             <FormHelperText id="my-helper-text">
-              Your official email
+              {this.props.isKiswahili
+                ? "Barua pepe ya kazini"
+                : "Your official email"}
             </FormHelperText>
           </FormControl>
           {/*                <----- *** ----->           */}
 
           <FormControl size="medium" className={this.props.classes.formControl}>
-            <InputLabel htmlFor="password">Password</InputLabel>
+            <InputLabel htmlFor="password">
+              {this.props.isKiswahili ? "Nywila" : "Password"}
+            </InputLabel>
             <Input
               id="password"
               type="password"
@@ -144,7 +159,7 @@ class Register extends Component {
               required
             />
             <FormHelperText id="my-helper-text">
-              A strong password
+              {this.props.isKiswahili ? "Nywila ya nguvu" : "Strong password"}
             </FormHelperText>
           </FormControl>
           {/*                <----- *** ----->           */}
@@ -159,23 +174,33 @@ class Register extends Component {
               required
             >
               <MenuItem value="" disabled>
-                Select Role
+                {this.props.isKiswahili ? "Kazi" : "Select Role"}
               </MenuItem>
-              <MenuItem value={"Lecturer"}>Lecturer</MenuItem>
-              <MenuItem value={"Student"}>Student</MenuItem>
+              <MenuItem value={"Lecturer"}>
+                {this.props.isKiswahili ? "Mhadhiri" : "Lecturer"}
+              </MenuItem>
+              <MenuItem value={"Student"}>
+                {this.props.isKiswahili ? "Mwanafunzi" : "Student"}
+              </MenuItem>
             </Select>
           </FormControl>
           {/*                <----- *** ----->           */}
 
           <FormControl size="medium" className={this.props.classes.formControl}>
-            <FormHelperText>Have an account?</FormHelperText>
+            <FormHelperText>
+              {this.props.isKiswahili ? "Uko na akaunti?" : "Have an account?"}
+            </FormHelperText>
             <Link to={`/login`}>
-              <p className={this.props.classes.formControl}>Login Here</p>
+              <p className={this.props.classes.formControl}>
+                {this.props.isKiswahili ? "Ingia Hapa" : "Login Here"}
+              </p>
             </Link>
           </FormControl>
 
           <Button type="submit" color="primary" variant="contained">
-            Register
+            <FormHelperText>
+              {this.props.isKiswahili ? "Jisajili" : "Register"}
+            </FormHelperText>
           </Button>
         </form>
       </div>

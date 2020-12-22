@@ -60,17 +60,25 @@ class Login extends Component {
           }}
         >
           <FormControl size="medium" className={this.props.classes.formControl}>
-            <InputLabel htmlFor="username">Username</InputLabel>
+            <InputLabel htmlFor="username">
+              {this.props.isKiswahili ? "Jina la mtumiaji" : "Username"}
+            </InputLabel>
             <Input
               id="username"
               aria-describedby="my-helper-text"
               onChange={this.myChangeHandler}
               required
             />
-            <FormHelperText>You're unique username</FormHelperText>
+            <FormHelperText>
+              {this.props.isKiswahili
+                ? "Jina la mtumiaji"
+                : "You're unique username"}
+            </FormHelperText>
           </FormControl>
           <FormControl size="medium" className={this.props.classes.formControl}>
-            <InputLabel htmlFor="password">Password</InputLabel>
+            <InputLabel htmlFor="password">
+              {this.props.isKiswahili ? "Nywila" : "Password"}
+            </InputLabel>
             <Input
               id="password"
               type="password"
@@ -81,13 +89,19 @@ class Login extends Component {
             <FormHelperText></FormHelperText>
           </FormControl>
           <FormControl size="medium" className={this.props.classes.formControl}>
-            <FormHelperText>Don't have an account?</FormHelperText>
+            <FormHelperText>
+              {this.props.isKiswahili
+                ? "Hauna akaunti?"
+                : "Don't have an account?"}
+            </FormHelperText>
             <Link to={`/register`}>
-              <p className={this.props.classes.formControl}>Register Here</p>
+              <p className={this.props.classes.formControl}>
+                {this.props.isKiswahili ? "Jisajili Hapa" : "Register Here"}
+              </p>
             </Link>
           </FormControl>
           <Button type="submit" color="primary" variant="contained">
-            Login
+            {this.props.isKiswahili ? "Ingia" : "Login"}
           </Button>
         </form>
       </div>
