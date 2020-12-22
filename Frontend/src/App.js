@@ -6,6 +6,7 @@ import store from "./state/store";
 import { Route, HashRouter, Switch } from "react-router-dom";
 import CssBaseline from "@material-ui/core/CssBaseline";
 //
+import Alerts from "./components/Alerts";
 import Header from "./components/Header";
 import NewNote from "./components/notes/NewNote";
 import EditNote from "./components/notes/EditNote";
@@ -136,6 +137,7 @@ function App() {
         <ThemeProvider theme={theme}>
           <CssBaseline />
           <HashRouter>
+            <Alerts />
             <Header
               isKiswahili={isKiswahili}
               isLargeFont={isLargeFont}
