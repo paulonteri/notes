@@ -59,9 +59,14 @@ export const NotesSharedList = (props) => {
     <div>
       <Typography className={classes.header} color="textSecondary">
         {props.isKiswahili
-          ? "    Maandishi uliyoonyeshwa na marafiki wako"
-          : "    Notes shared to you by your peers"}
+          ? "    Maandishi uliyoonyeshwa na marafiki wako:"
+          : "    Notes shared to you by your peers:"}
       </Typography>
+      {!props.notes || !props.notes.length > 0
+        ? props.isKiswahili
+          ? "Hakuna maandishi uliyoonyeshwa na marafiki wako"
+          : "No notes were shared to you by your peers"
+        : null}
       {props.notes.map((note) => {
         return (
           <Card className={classes.root} key={note.id} variant="outlined">
