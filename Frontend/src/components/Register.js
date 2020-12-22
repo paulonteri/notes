@@ -13,6 +13,7 @@ import MenuItem from "@material-ui/core/MenuItem";
 import Select from "@material-ui/core/Select";
 import { withStyles } from "@material-ui/core/styles";
 import { Link } from "react-router-dom";
+import SpinnerLarge from "../layout/SpinnerLarge";
 
 class Register extends Component {
   state = {
@@ -22,6 +23,7 @@ class Register extends Component {
     role: "",
     first_name: "",
     last_name: "",
+    formSubmitted: false,
   };
 
   myChangeHandler = (e) => this.setState({ [e.target.id]: e.target.value }); // grab the name and set thet to the value
@@ -41,6 +43,7 @@ class Register extends Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
+    this.setState({ formSubmitted: true });
 
     const {
       username,
@@ -67,6 +70,8 @@ class Register extends Component {
   render() {
     if (this.props.isAuthenticated) {
       return <Redirect to="/" />;
+    } else if (this.props.isLoading && this.state.formSubmitted) {
+      return <SpinnerLarge />;
     }
     return (
       <div>

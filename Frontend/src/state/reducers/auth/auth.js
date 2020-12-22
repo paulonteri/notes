@@ -76,6 +76,7 @@ export default function (state = initialState, action) {
         registerUserLoading: true,
         registerUserSuccess: false,
         registerUserFailed: false,
+        isLoading: true,
       };
     case REGISTER_SUCCESS:
       setToken(action.payload.token);
@@ -94,6 +95,7 @@ export default function (state = initialState, action) {
         registerUserFailed: true,
         registerUserLoading: false,
         registerUserSuccess: false,
+        isLoading: false,
       };
     // attempt logout
     case LOGOUT:

@@ -11,9 +11,10 @@ import {
 import { Redirect } from "react-router-dom";
 import { withStyles } from "@material-ui/core/styles";
 import { Link } from "react-router-dom";
+import SpinnerLarge from "../layout/SpinnerLarge";
 
 class Login extends Component {
-  state = { username: "", password: "" };
+  state = { username: "", password: "", formSubmitted: false };
 
   myChangeHandler = (e) => this.setState({ [e.target.id]: e.target.value }); // grab the name and set thet to the value
 
@@ -27,6 +28,7 @@ class Login extends Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
+    this.setState({ formSubmitted: true });
 
     const { username, password } = this.state; // get them from the state
 
@@ -43,7 +45,10 @@ class Login extends Component {
   render() {
     if (this.props.isAuthenticated) {
       return <Redirect to="/" />;
+    } else if (this.props.isLoading && this.state.formSubmitted) {
+      return <SpinnerLarge />;
     }
+
     return (
       <div>
         <form
