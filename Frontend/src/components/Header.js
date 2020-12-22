@@ -8,6 +8,7 @@ import { useLocation } from "react-router-dom";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 import MenuIcon from "@material-ui/icons/Menu";
 import LibraryBooksIcon from "@material-ui/icons/LibraryBooks";
+import { logout } from "../state/actions/auth/auth";
 
 const useStyles = makeStyles({
   root: {
@@ -45,8 +46,8 @@ const useStyles = makeStyles({
     alignItems: "center",
   },
   buttonSmall: {
-    margin: 15,
-    width: "400px",
+    margin: 10,
+    minWidth: "300px",
   },
   topContainer: {
     display: "flex",
@@ -136,14 +137,17 @@ const Header = (props) => {
             >
               <Link onClick={onIconClick} to={`/note`}>
                 <Button
+                  size="small"
                   className={matches ? classes.buttonSmall : classes.button}
                   variant="contained"
+                  type=""
                 >
                   {props.isKiswahili ? "Maandishi ya wengine" : "Shared Notes"}
                 </Button>
               </Link>
               <Link onClick={onIconClick} to={`/note`}>
                 <Button
+                  size="small"
                   className={matches ? classes.buttonSmall : classes.button}
                   variant="contained"
                 >
@@ -151,6 +155,7 @@ const Header = (props) => {
                 </Button>
               </Link>
               <Button
+                size="small"
                 className={matches ? classes.buttonSmall : classes.button}
                 variant="contained"
                 onClick={() => {
@@ -167,6 +172,7 @@ const Header = (props) => {
                   : "Small font"}
               </Button>
               <Button
+                size="small"
                 className={matches ? classes.buttonSmall : classes.button}
                 variant="contained"
                 onClick={() => {
@@ -177,6 +183,7 @@ const Header = (props) => {
                 {props.isKiswahili ? "Rangi" : "Theme"}
               </Button>
               <Button
+                size="small"
                 className={matches ? classes.buttonSmall : classes.button}
                 variant="contained"
                 onClick={() => {
@@ -184,7 +191,18 @@ const Header = (props) => {
                   props.handleLanguageChange();
                 }}
               >
-                {props.isKiswahili ? "Kingereza/English" : "Kiswahili"}
+                {props.isKiswahili ? "Kingereza / English" : "Kiswahili"}
+              </Button>
+              <Button
+                size="small"
+                className={matches ? classes.buttonSmall : classes.button}
+                variant="contained"
+                onClick={() => {
+                  onIconClick();
+                  props.logout();
+                }}
+              >
+                {props.isKiswahili ? "Ondoka" : "Logout"}
               </Button>
             </Container>
           ) : null}
@@ -201,4 +219,4 @@ const mapStateToProps = (state) => ({
   isLoading: state.authReducer.isLoading,
 });
 
-export default connect(mapStateToProps)(Header);
+export default connect(mapStateToProps, { logout })(Header);

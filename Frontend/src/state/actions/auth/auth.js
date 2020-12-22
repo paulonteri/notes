@@ -88,23 +88,11 @@ export const logout = () => (dispatch, getState) => {
   dispatch({
     type: LOGOUT,
   });
-  axios
-    .post(`${URL}/api/v1/auth/logout/`, null, tokenConfig(getState))
-    .then((res) => {
-      dispatch({ type: "CLEAR_ALL" });
-      dispatch({
-        type: LOGOUT_SUCCESS,
-      });
-    })
-    .catch((err) => {
-      if (typeof err.response === "undefined") {
-        return dispatch(
-          returnErrors("Something went wrong", null, "Logout Failed")
-        );
-      } else {
-        dispatch(returnErrors(err.response.data, err.response.status));
-      }
-    });
+
+  dispatch({ type: "CLEAR_ALL" });
+  dispatch({
+    type: LOGOUT_SUCCESS,
+  });
 };
 
 // CHECK TOKEN & LOAD USER
