@@ -4,7 +4,7 @@ from rest_framework.response import Response
 from rest_framework.exceptions import APIException, PermissionDenied
 from rest_framework.status import HTTP_200_OK
 from .models import Note, NoteUser
-from .serializers import NoteSerializer, NoteUserSerializer
+from .serializers import NoteSerializer, NoteUserSerializer, NoteSharedSerializer
 from django.contrib.auth import get_user_model
 User = get_user_model()
 
@@ -163,6 +163,6 @@ class NotesSharedWithUserAPI(APIView):
         notes_shared_with_user = [
             note_user.note for note_user in NoteUser.objects.filter(user=request_user)]
 
-        serializer = NoteSerializer(notes_shared_with_user, many=True)
+        serializer = NoteSharedSerializer(notes_shared_with_user, many=True)
 
         return Response(serializer.data)

@@ -23,6 +23,15 @@ class NoteSerializer(serializers.ModelSerializer):
         return serializer.data
 
 
+class NoteSharedSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Note
+        fields = '__all__'
+        read_only_fields = ['owner']
+        depth = 2
+
+
 class NoteUserSerializer(serializers.ModelSerializer):
     class Meta:
         model = NoteUser
