@@ -208,7 +208,104 @@ const Header = (props) => {
           ) : null}
         </>
       ) : (
-        <Container style={{ height: 20 }} />
+        <>
+          <Container>
+            {!matches ? (
+              <Link
+                disabled
+                style={{
+                  // backgroundColor: "red",
+                  display: "flex",
+                  flexDirection: "row",
+                  alignContent: "center",
+                }}
+              >
+                <LibraryBooksIcon
+                  style={{
+                    marginTop: props.isLargeFont ? 32 : 15,
+                    fontSize: props.isLargeFont ? 35 : 25,
+                    marginRight: props.isLargeFont ? 10 : 5,
+                  }}
+                />
+                <h2>
+                  {props.isKiswahili ? "Programu ya maandishi" : "Notes App"}
+                </h2>
+              </Link>
+            ) : (
+              <Container className={classes.topContainer}>
+                <Link
+                  disabled
+                  style={{
+                    display: "flex",
+                    flexDirection: "row",
+                    alignContent: "center",
+                  }}
+                >
+                  <LibraryBooksIcon
+                    style={{
+                      marginTop: props.isLargeFont ? 32 : 15,
+                      fontSize: props.isLargeFont ? 35 : 25,
+                      marginRight: props.isLargeFont ? 10 : 5,
+                    }}
+                  />
+                  <h2>
+                    {props.isKiswahili ? "Programu ya maandishi" : "Notes App"}
+                  </h2>
+                </Link>
+                <div onClick={onIconClick}>
+                  <MenuIcon
+                    style={{ fontSize: 50, margin: 17, color: "purple" }}
+                  />
+                </div>
+              </Container>
+            )}
+          </Container>
+          {!matches || isVisible ? (
+            <Container
+              className={matches ? classes.buttonsSmall : classes.buttons}
+            >
+              <Button
+                size="small"
+                className={matches ? classes.buttonSmall : classes.button}
+                variant="contained"
+                onClick={() => {
+                  onIconClick();
+                  props.handleFont();
+                }}
+              >
+                {!props.isLargeFont
+                  ? props.isKiswahili
+                    ? "Herufi kubwa"
+                    : "Large font"
+                  : props.isKiswahili
+                  ? "Herufi Ndogo "
+                  : "Small font"}
+              </Button>
+              <Button
+                size="small"
+                className={matches ? classes.buttonSmall : classes.button}
+                variant="contained"
+                onClick={() => {
+                  onIconClick();
+                  props.handleThemeChange();
+                }}
+              >
+                {props.isKiswahili ? "Rangi" : "Theme"}
+              </Button>
+              <Button
+                size="small"
+                className={matches ? classes.buttonSmall : classes.button}
+                variant="contained"
+                onClick={() => {
+                  onIconClick();
+                  props.handleLanguageChange();
+                }}
+              >
+                {props.isKiswahili ? "Kingereza / English" : "Kiswahili"}
+              </Button>
+            </Container>
+          ) : null}
+        </>
       )}
     </Container>
   );

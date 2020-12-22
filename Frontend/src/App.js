@@ -78,9 +78,7 @@ function App() {
     setisLargeFont(true);
     localStorage.setItem("largeFont", true);
 
-    const mediumElements = document.querySelectorAll(
-      "div, p, span, input, label"
-    );
+    const mediumElements = document.querySelectorAll("p, span, input, label");
     mediumElements.forEach((element) => {
       element.setAttribute("style", "font-size: large !important");
     });
@@ -96,9 +94,7 @@ function App() {
     setisLargeFont(false);
     localStorage.setItem("largeFont", false);
 
-    const mediumElements = document.querySelectorAll(
-      "div, p, span, input, label"
-    );
+    const mediumElements = document.querySelectorAll("p, span, input, label");
     mediumElements.forEach((element) => {
       element.style.cssText = "font-size: medium !important";
     });
