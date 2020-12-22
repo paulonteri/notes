@@ -32,6 +32,9 @@ const useStyles = makeStyles({
   pos: {
     marginBottom: 12,
   },
+  header: {
+    marginLeft: 10,
+  },
 });
 
 export const NotesList = (props) => {
@@ -54,7 +57,14 @@ export const NotesList = (props) => {
 
   return (
     <div>
-      <div>{props.isKiswahili ? "Maandishi" : "Notes"}</div>
+      <Typography className={classes.header} color="textSecondary">
+        {props.isKiswahili ? "    Maandishi yako:" : "    Your Notes:"}
+      </Typography>
+      {!props.notes || !props.notes.length > 0
+        ? props.isKiswahili
+          ? "Hakuna maandishi"
+          : "You have no notes"
+        : null}
       {props.notes.map((note) => {
         return (
           <Card className={classes.root} key={note.id} variant="outlined">
