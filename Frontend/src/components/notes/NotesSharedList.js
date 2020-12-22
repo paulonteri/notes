@@ -6,16 +6,13 @@ import SpinnerLarge from "../../layout/SpinnerLarge";
 
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
-import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
-import { Link } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles({
   root: {
     minWidth: 275,
-    margin: 5,
-    marginBottom: 10,
+    margin: 20,
   },
   cardContent: {
     display: "flex",
@@ -31,7 +28,10 @@ const useStyles = makeStyles({
     fontSize: 14,
   },
   pos: {
-    marginBottom: 12,
+    marginBottom: 20,
+  },
+  header: {
+    marginLeft: 10,
   },
 });
 
@@ -57,7 +57,11 @@ export const NotesSharedList = (props) => {
 
   return (
     <div>
-      <div>{props.isKiswahili ? "Maandishi" : "Notes"}</div>
+      <Typography className={classes.header} color="textSecondary">
+        {props.isKiswahili
+          ? "    Maandishi uliyoonyeshwa na marafiki wako"
+          : "    Notes shared to you by your peers"}
+      </Typography>
       {props.notes.map((note) => {
         return (
           <Card className={classes.root} key={note.id} variant="outlined">
@@ -68,24 +72,18 @@ export const NotesSharedList = (props) => {
                   {" |       "}
                   <small>
                     {props.isKiswahili
-                      ? " |     iliyoshirikiwa kwako na: "
-                      : " |     shared to you by: "}
+                      ? " ->     iliyoshirikiwa kwako na: "
+                      : " ->     shared to you by: "}
                     {note.owner.username}
                     {note.owner.first_name}
                     {note.owner.last_name}
                   </small>
                 </Typography>
                 <Typography className={classes.pos} color="textSecondary">
-                  {note.text.substring(0, 20)}...
+                  {note.text}
                 </Typography>
               </div>
-              <div>
-                <Link to={`/note/${note.id}`}>
-                  <Button variant="contained" color="primary">
-                    {props.isKiswahili ? "Anagalia Maandishi" : "View Note"}
-                  </Button>
-                </Link>
-              </div>
+              <div></div>
             </CardContent>
           </Card>
         );
