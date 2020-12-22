@@ -85,6 +85,7 @@ const Header = (props) => {
           <Container>
             {!matches ? (
               <Link
+                onClick={onIconClick}
                 to={`/notes`}
                 style={{
                   display: "flex",
@@ -104,6 +105,7 @@ const Header = (props) => {
             ) : (
               <Container className={classes.topContainer}>
                 <Link
+                  onClick={onIconClick}
                   to={`/notes`}
                   style={{
                     display: "flex",
@@ -132,7 +134,7 @@ const Header = (props) => {
             <Container
               className={matches ? classes.buttonsSmall : classes.buttons}
             >
-              <Link to={`/note`}>
+              <Link onClick={onIconClick} to={`/note`}>
                 <Button
                   className={matches ? classes.buttonSmall : classes.button}
                   variant="contained"
@@ -140,7 +142,7 @@ const Header = (props) => {
                   {props.isKiswahili ? "Maandishi ya wengine" : "Shared Notes"}
                 </Button>
               </Link>
-              <Link to={`/note`}>
+              <Link onClick={onIconClick} to={`/note`}>
                 <Button
                   className={matches ? classes.buttonSmall : classes.button}
                   variant="contained"
@@ -151,7 +153,10 @@ const Header = (props) => {
               <Button
                 className={matches ? classes.buttonSmall : classes.button}
                 variant="contained"
-                onClick={props.handleFont}
+                onClick={() => {
+                  onIconClick();
+                  props.handleFont();
+                }}
               >
                 {!props.isLargeFont
                   ? props.isKiswahili
@@ -164,14 +169,20 @@ const Header = (props) => {
               <Button
                 className={matches ? classes.buttonSmall : classes.button}
                 variant="contained"
-                onClick={props.handleThemeChange}
+                onClick={() => {
+                  onIconClick();
+                  props.handleThemeChange();
+                }}
               >
                 {props.isKiswahili ? "Rangi" : "Theme"}
               </Button>
               <Button
                 className={matches ? classes.buttonSmall : classes.button}
                 variant="contained"
-                onClick={props.handleLanguageChange}
+                onClick={() => {
+                  onIconClick();
+                  props.handleLanguageChange();
+                }}
               >
                 {props.isKiswahili ? "Kingereza/English" : "Kiswahili"}
               </Button>
