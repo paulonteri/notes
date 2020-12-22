@@ -13,6 +13,7 @@ import ViewNote from "./components/notes/ViewNote";
 import Login from "./components/Login";
 import Register from "./components/Register";
 import NotesList from "./components/notes/NotesList";
+import NotesSharedList from "./components/notes/NotesSharedList";
 //
 import PrivateRoute from "./components/PrivateRoute";
 //
@@ -172,6 +173,13 @@ function App() {
                 exact
                 path="/notes"
                 component={NotesList}
+                isKiswahili={isKiswahili}
+                applyChanges={applyChanges}
+              />
+              <PrivateRoute
+                exact
+                path="/notes/shared-with-me"
+                component={NotesSharedList}
                 isKiswahili={isKiswahili}
                 applyChanges={applyChanges}
               />

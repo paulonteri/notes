@@ -16,7 +16,7 @@ export const getNotes = () => (dispatch, getState) => {
   // GET ALL SHARED_NOTES
   dispatch({ type: GET_SHARED_NOTES_LOADING });
   axios
-    .get(`${SERVER_URL}notes/shared-with-me/`, tokenConfig(getState))
+    .get(`${SERVER_URL}/notes/shared-with-me/`, tokenConfig(getState))
     .then((res) => {
       dispatch({
         type: GET_SHARED_NOTES_DONE,
@@ -24,6 +24,7 @@ export const getNotes = () => (dispatch, getState) => {
       });
     })
     .catch((err) => {
+      console.log(err);
       dispatch({ type: GET_SHARED_NOTES_FAILED });
       // TODO: Add Error Handling
       if (typeof err.response === "undefined") {
@@ -46,7 +47,7 @@ export const getNotes = () => (dispatch, getState) => {
 export const getNoteDetail = (noteId) => (dispatch, getState) => {
   dispatch({ type: GET_SHARED_NOTE_DETAIL_LOADING });
   axios
-    .get(`${SERVER_URL}notes/shared-with-me/${noteId}/`, tokenConfig(getState))
+    .get(`${SERVER_URL}/notes/shared-with-me/${noteId}/`, tokenConfig(getState))
     .then((res) => {
       dispatch({
         type: GET_SHARED_NOTE_DETAIL_DONE,

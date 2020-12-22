@@ -24,11 +24,11 @@ const setToken = (token) => {
   } else return null;
 };
 
-const deleteToken = () => {
-  if (typeof window !== "undefined") {
-    return localStorage.removeItem("myToken");
-  } else return null;
-};
+// const deleteToken = () => {
+//   if (typeof window !== "undefined") {
+//     return localStorage.removeItem("myToken");
+//   } else return null;
+// };
 
 const initialState = {
   token: getToken(),

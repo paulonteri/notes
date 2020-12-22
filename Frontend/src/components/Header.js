@@ -135,7 +135,7 @@ const Header = (props) => {
             <Container
               className={matches ? classes.buttonsSmall : classes.buttons}
             >
-              <Link onClick={onIconClick} to={`/note`}>
+              <Link onClick={onIconClick} to={`/notes/shared-with-me`}>
                 <Button
                   size="small"
                   className={matches ? classes.buttonSmall : classes.button}
