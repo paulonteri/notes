@@ -2,8 +2,8 @@ from backend.settings.base import *  # noqa
 
 SECRET_KEY = '6h03)d($%+c4r#p65#ctnk3*u21^v@q+*e^ue0+llrq%zv(94z'
 
-DEBUG = True
-TESTING = True
+DEBUG = False
+TESTING = False
 
 ALLOWED_HOSTS = ["*", ]
 
